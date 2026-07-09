@@ -146,7 +146,7 @@
   .phone{ flex:0 0 auto; width:var(--pw); padding:8px; border-radius:38px; background:linear-gradient(160deg,#141414,#050505); border:1px solid #262626; box-shadow:0 26px 60px rgba(0,0,0,.26), 0 3px 10px rgba(0,0,0,.18); will-change:transform,opacity; }
   .phone .screen{ position:relative; border-radius:30px; overflow:hidden; background:#000; aspect-ratio:1206/2622; }
   .phone .screen img{ width:100%; height:100%; object-fit:cover; display:block; }
-  @media (max-width:900px){ .euno-stage{ --pw:200px; height:250vh; } .euno-pin-inner{ grid-template-columns:1fr; gap:4vh; } .euno-viewport{ height:54vh; } }
+  @media (max-width:900px){ .euno-stage{ --pw:200px; height:auto; } .euno-pin{ position:static; height:auto; padding:8vh 0; display:block; overflow:visible; } .euno-pin-inner{ grid-template-columns:1fr; gap:5vh; } .euno-viewport{ height:auto; overflow:visible; } .euno-track{ transform:none !important; flex-wrap:wrap; justify-content:center; gap:18px; height:auto; padding:0; } .euno-track .phone{ transform:none !important; opacity:1 !important; } }
   @media (max-width:820px){ .feature .feat{ grid-template-columns:1fr; } figure.plate.big{ height:58vh; } }
 
   /* real photos: grayscale, bloom to color on hover */
@@ -346,8 +346,24 @@
   .lines .line:nth-child(2) i{ transition-delay:.1s; } .lines .line:nth-child(3) i{ transition-delay:.2s; } .lines .line:nth-child(4) i{ transition-delay:.3s; }
   .fade{ opacity:0; transform:translateY(24px); } .rv.fade,.rv .fade{ opacity:1; transform:none; transition:opacity .9s ease, transform .9s cubic-bezier(.16,1,.3,1); }
 
-  @media (max-width:820px){ .hero{ grid-template-columns:1fr; } .frame{ display:none; } .about-grid{ grid-template-columns:1fr; } }
+  @media (max-width:820px){ .hero{ grid-template-columns:1fr; padding:0 22px; } .frame{ display:none; } .about-grid{ grid-template-columns:1fr; } figure.plate{ clip-path:none !important; } .plate.portrait{ height:74vh; } }
   @media (prefers-reduced-motion:reduce){ *{ transition:none !important; animation:none !important; } h1 .ltr,.lines .line i{ transform:none; } .frame,figure.plate,.menu a{ clip-path:none; transform:none; } body.loading .brand{ transform:translateX(-50%); } .loader-bg{ display:none; } .cm-photo{ transform:scale(1); } .cm-black{ opacity:1; } .cm-text,.cm-late{ opacity:1; } .workpage .wp-hero img{ filter:grayscale(0) contrast(1); transform:none; } .euno-stage{ height:auto; } .euno-pin{ position:static; height:auto; padding:6vh 0; } .euno-pin-inner{ grid-template-columns:1fr; } .euno-viewport{ height:auto; overflow:visible; } .euno-track{ transform:none !important; flex-wrap:wrap; justify-content:center; height:auto; } .euno-track .phone{ transform:none !important; opacity:1 !important; } .proj-stage{ height:auto; } .proj-pin{ position:static; height:auto; } .proj-viewport{ overflow-x:auto; } .proj-track{ transform:none !important; } }
+  /* ---------- phones ---------- */
+  @media (max-width:600px){
+    nav{ padding:14px 18px; }
+    .brand{ height:44px; top:16px; }
+    body.loading .brand{ transform:translate(-50%,calc(40vh - 1in)) scale(4.2); }
+    nav .co{ font-size:9px; letter-spacing:.06em; }
+    .menu-btn{ font-size:11px; gap:7px; }
+    .menu-btn .menu-ico{ height:20px; }
+    .nav-left{ gap:11px; }
+    .nav-chimera img{ height:22px; }
+    section.chapter{ padding-left:22px; padding-right:22px; }
+    .about-head{ gap:5vh; }
+    .euno-pin-inner{ padding:0 22px; }
+    .feat-title{ font-size:13vw; }
+    .tags li{ font-size:11.5px; padding:6px 12px; }
+  }
 </style>
 </head>
 <body class="loading">
