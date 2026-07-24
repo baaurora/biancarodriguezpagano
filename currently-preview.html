@@ -17,7 +17,7 @@
   /* masthead */
   .eyebrow{ font-family:'Anton',sans-serif; letter-spacing:.18em; font-size:12px; color:var(--accent); text-transform:uppercase; }
   .title{ font-family:'Anton',sans-serif; font-size:clamp(64px,13vw,150px); line-height:.86; text-transform:uppercase; margin:10px 0 8px; }
-  .date{ font-size:14px; color:var(--muted); letter-spacing:.04em; }
+  .date{ font-size:13px; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; }
   .rule{ height:1px; background:var(--line); margin:5vh 0 2vh; }
 
   /* lane */
@@ -47,14 +47,28 @@
   .garment .shot{ height:230px; background:#efeee9; display:flex; align-items:center; justify-content:center; text-align:center; padding:12px; }
   .garment .shot span{ font-size:12px; color:#9a988f; line-height:1.35; }
 
-  /* listening: real spotify embeds, framed in site style */
-  .plcard{ flex:0 0 auto; width:320px; }
-  .plcard-head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; border-bottom:2px solid var(--ink); padding-bottom:8px; margin-bottom:12px; }
+  /* listening: custom player in the site style (Spotify data, our skin) */
+  .plcard{ flex:0 0 auto; width:340px; }
+  .plcard-head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; border-bottom:2px solid var(--ink); padding-bottom:8px; margin-bottom:0; }
   .plcard-name{ font-family:'Anton',sans-serif; font-size:26px; line-height:.92; text-transform:uppercase; }
   .plcard-name a{ color:var(--ink); text-decoration:none; }
   .plcard-name a:hover{ color:var(--accent); }
   .plcard-time{ flex:0 0 auto; font-family:'Anton',sans-serif; font-size:14px; letter-spacing:.04em; color:var(--accent); white-space:nowrap; }
-  .plcard iframe{ display:block; border:0; width:100%; }
+  .pl-list{ max-height:392px; overflow-y:auto; scrollbar-width:thin; }
+  .pl-list::-webkit-scrollbar{ width:5px; } .pl-list::-webkit-scrollbar-thumb{ background:#d8d8d8; }
+  .pl-row{ display:grid; grid-template-columns:20px minmax(0,1fr) auto; align-items:center; gap:11px; padding:9px 2px; border-bottom:1px solid var(--line); cursor:pointer; }
+  .pl-row:hover{ background:#f5f4f0; }
+  .pl-row.playing .pl-t{ color:var(--accent); }
+  .pl-idx{ font-size:12px; color:var(--muted); text-align:center; font-variant-numeric:tabular-nums; }
+  .pl-row:hover .pl-idx .n, .pl-row.playing .pl-idx .n{ display:none; }
+  .pl-idx .g{ display:none; color:var(--accent); font-size:11px; }
+  .pl-row:hover .pl-idx .g, .pl-row.playing .pl-idx .g{ display:inline; }
+  .pl-meta{ min-width:0; }
+  .pl-t{ font-size:14px; font-weight:500; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pl-a{ font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pl-d{ font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .pl-row.noprev{ cursor:default; } .pl-row.noprev:hover{ background:none; }
+  .pl-hint{ font-size:11px; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin:9px 0 2px; }
 
   /* pinterest tile */
   .pintile{ flex:0 0 auto; width:230px; height:220px; background:#f3f2ee; border:1px solid var(--line); color:var(--ink); text-decoration:none; padding:18px; display:flex; flex-direction:column; justify-content:space-between; }
@@ -68,23 +82,8 @@
   <div class="wrap">
     <div class="eyebrow">Off the clock</div>
     <div class="title">Currently</div>
-    <div class="date">Summer 2026 &nbsp;·&nbsp; a living snapshot</div>
+    <div class="date">Summer 2026</div>
     <div class="rule"></div>
-
-    <div class="lane">
-      <div class="lane-head"><div class="lane-label">Wearing</div><div class="lane-note">Casual preppy, lots of layering</div></div>
-      <div class="track">
-        <div class="tile garment"><div class="shot"><span>oxford button-down</span></div></div>
-        <div class="tile garment"><div class="shot"><span>barrel-leg jeans</span></div></div>
-        <div class="tile garment"><div class="shot"><span>wide-leg khaki shorts</span></div></div>
-        <div class="tile garment"><div class="shot"><span>boat-neck knit</span></div></div>
-        <div class="tile garment"><div class="shot"><span>cotton coquette blouse</span></div></div>
-        <div class="tile garment"><div class="shot"><span>solid-color sneakers</span></div></div>
-        <div class="tile garment"><div class="shot"><span>the perfect white tee</span></div></div>
-        <div class="tile garment"><div class="shot"><span>backless top</span></div></div>
-        <div class="tile garment"><div class="shot"><span>baggy wide-leg trousers</span></div></div>
-      </div>
-    </div>
 
     <div class="lane">
       <div class="lane-head"><div class="lane-label">Reading</div></div>
@@ -108,20 +107,7 @@
 
     <div class="lane">
       <div class="lane-head"><div class="lane-label">Listening</div><div class="lane-note">Charlie Burg, Ryan Beatty, Jensen McRae on repeat</div></div>
-      <div class="track">
-        <div class="plcard">
-          <div class="plcard-head"><div class="plcard-name"><a href="https://open.spotify.com/playlist/6Wr9pP0ghWDITdZGw1mpRG" target="_blank" rel="noopener">summa cum lawd 26</a></div><div class="plcard-time">1h 36m</div></div>
-          <iframe src="https://open.spotify.com/embed/playlist/6Wr9pP0ghWDITdZGw1mpRG?utm_source=generator" height="380" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-        </div>
-        <div class="plcard">
-          <div class="plcard-head"><div class="plcard-name"><a href="https://open.spotify.com/playlist/6b5VjK3rEvE6w1QnjJHRcB" target="_blank" rel="noopener">clutching</a></div><div class="plcard-time">5h 39m</div></div>
-          <iframe src="https://open.spotify.com/embed/playlist/6b5VjK3rEvE6w1QnjJHRcB?utm_source=generator" height="380" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-        </div>
-        <div class="plcard">
-          <div class="plcard-head"><div class="plcard-name"><a href="https://open.spotify.com/playlist/3eh1dNYkqJxliEYXBgeKFo" target="_blank" rel="noopener">spirits</a></div><div class="plcard-time">5h 58m</div></div>
-          <iframe src="https://open.spotify.com/embed/playlist/3eh1dNYkqJxliEYXBgeKFo?utm_source=generator" height="380" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-        </div>
-      </div>
+      <div class="track" id="listeningTrack"></div>
     </div>
 
     <div class="lane">
@@ -131,11 +117,57 @@
         <div class="tile wide"><div class="shot"><img src="assets/currently/look-kaufmann-house.jpg" alt="Kaufmann Desert House"></div><div class="cap">Kaufmann Desert House</div></div>
         <div class="tile wide"><div class="shot"><img src="assets/currently/look-farnsworth-house.jpg" alt="Farnsworth House"></div><div class="cap">Farnsworth House</div></div>
         <div class="tile wide"><div class="shot"><img src="assets/currently/look-eames-house.jpg" alt="Eames House"></div><div class="cap">Eames House</div></div>
-        <a class="pintile" href="https://www.pinterest.com/biancaapagano/you-can-be/" target="_blank" rel="noopener"><div class="pk">you can be ↗</div><div class="pm">a Pinterest board</div></a>
       </div>
     </div>
 
-    <div class="note-banner">Preview only. Wearing shows placeholder tiles until your 9 garment photos land. Covers, posters, and architecture are the real images (hover any to see it bloom from black and white to color). Playlists are live links to Spotify.</div>
+    <div class="lane">
+      <div class="lane-head"><div class="lane-label">Wearing</div><div class="lane-note">Casual preppy, lots of layering</div></div>
+      <div class="track">
+        <div class="tile garment"><div class="shot"><span>oxford button-downs</span></div></div>
+        <div class="tile garment"><div class="shot"><span>barrel-leg jeans</span></div></div>
+        <div class="tile garment"><div class="shot"><span>wide-leg khaki shorts</span></div></div>
+        <div class="tile garment"><div class="shot"><span>boat-neck knits</span></div></div>
+        <div class="tile garment"><div class="shot"><span>cotton coquette blouses</span></div></div>
+        <div class="tile garment"><div class="shot"><span>solid-color sneakers</span></div></div>
+        <div class="tile garment"><div class="shot"><span>perfect white tees</span></div></div>
+        <div class="tile garment"><div class="shot"><span>backless tops</span></div></div>
+        <div class="tile garment"><div class="shot"><span>baggy wide-leg trousers</span></div></div>
+      </div>
+    </div>
+
+    <div class="note-banner">Preview only. Wearing (bottom) shows placeholder tiles until your 9 garment photos land. Covers, posters, and architecture are the real images, hover any to bloom from black and white to color. Listening is a custom player skinned to your site, tap any track for a 30-second preview or open the full playlist in Spotify.</div>
   </div>
+  <script src="assets/currently/playlists.js"></script>
+  <script>
+  (function(){
+    var track=document.getElementById('listeningTrack');
+    if(!track||!window.PLAYLISTS) return;
+    function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    var audio=new Audio(); var current=null;
+    function reset(row){ if(!row) return; row.classList.remove('playing'); var g=row.querySelector('.g'); if(g)g.textContent='▶'; }
+    function stop(){ reset(current); current=null; audio.pause(); }
+    window.PLAYLISTS.forEach(function(pl){
+      var card=document.createElement('div'); card.className='plcard';
+      var head=document.createElement('div'); head.className='plcard-head';
+      head.innerHTML='<div class="plcard-name"><a href="https://open.spotify.com/playlist/'+pl.id+'" target="_blank" rel="noopener">'+esc(pl.name)+'</a></div><div class="plcard-time">'+pl.total+'</div>';
+      card.appendChild(head);
+      var hint=document.createElement('div'); hint.className='pl-hint'; hint.textContent=pl.count+' tracks · 30-sec previews'; card.appendChild(hint);
+      var list=document.createElement('div'); list.className='pl-list';
+      pl.tracks.forEach(function(tk,i){
+        var row=document.createElement('div'); row.className='pl-row'+(tk.p?'':' noprev');
+        row.innerHTML='<div class="pl-idx"><span class="n">'+(i+1)+'</span><span class="g">▶</span></div>'+
+          '<div class="pl-meta"><div class="pl-t">'+esc(tk.t)+'</div><div class="pl-a">'+esc(tk.a)+'</div></div>'+
+          '<div class="pl-d">'+tk.d+'</div>';
+        if(tk.p){ row.addEventListener('click',function(){
+          if(current===row){ stop(); return; }
+          stop(); audio.src=tk.p; var pr=audio.play(); if(pr&&pr['catch'])pr['catch'](function(){}); current=row; row.classList.add('playing'); row.querySelector('.g').textContent='❚❚';
+        }); }
+        list.appendChild(row);
+      });
+      card.appendChild(list); track.appendChild(card);
+    });
+    audio.addEventListener('ended',function(){ reset(current); current=null; });
+  })();
+  </script>
 </body>
 </html>
