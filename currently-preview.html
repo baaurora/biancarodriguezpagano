@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Currently — preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#ffffff; --ink:#0a0a0a; --muted:#8a8a8a; --line:#e7e7e7; --accent:#1b3cff; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; }
+  .wrap{ max-width:1200px; margin:0 auto; padding:9vh 6vw 14vh; }
+
+  /* masthead */
+  .eyebrow{ font-family:'Anton',sans-serif; letter-spacing:.18em; font-size:12px; color:var(--accent); text-transform:uppercase; }
+  .title{ font-family:'Anton',sans-serif; font-size:clamp(64px,13vw,150px); line-height:.86; text-transform:uppercase; margin:10px 0 8px; }
+  .date{ font-size:14px; color:var(--muted); letter-spacing:.04em; }
+  .rule{ height:1px; background:var(--line); margin:5vh 0 2vh; }
+
+  /* lane */
+  .lane{ margin:5.5vh 0; }
+  .lane-head{ display:flex; align-items:baseline; gap:16px; margin-bottom:20px; }
+  .lane-label{ font-family:'Anton',sans-serif; font-size:clamp(22px,2.6vw,34px); text-transform:uppercase; letter-spacing:.02em; }
+  .lane-note{ font-size:14px; color:var(--muted); font-weight:300; }
+  .track{ display:flex; gap:18px; overflow-x:auto; padding-bottom:12px; scrollbar-width:thin; }
+  .track::-webkit-scrollbar{ height:5px; }
+  .track::-webkit-scrollbar-thumb{ background:#d8d8d8; }
+
+  /* bare sharp-edged tiles — no boxes, grayscale to color on hover */
+  .tile{ flex:0 0 auto; position:relative; overflow:hidden; }
+  .tile img{ display:block; width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.02); transition:filter .5s ease, transform .5s ease; }
+  .tile:hover img{ filter:grayscale(0) contrast(1); }
+  .tile .cap{ font-size:12px; color:var(--muted); margin-top:8px; letter-spacing:.02em; }
+
+  .poster{ width:210px; }
+  .poster .shot{ height:315px; }
+  .cover{ width:210px; }
+  .cover .shot{ height:315px; }
+  .wide{ width:340px; }
+  .wide .shot{ height:220px; }
+
+  /* garment placeholders (photos pending) */
+  .garment{ width:190px; }
+  .garment .shot{ height:230px; background:#efeee9; display:flex; align-items:center; justify-content:center; text-align:center; padding:12px; }
+  .garment .shot span{ font-size:12px; color:#9a988f; line-height:1.35; }
+
+  /* listening: flat anton tiles, no image */
+  .pltile{ flex:0 0 auto; width:230px; height:230px; background:var(--ink); color:#fff; padding:20px; display:flex; flex-direction:column; justify-content:space-between; text-decoration:none; transition:background .3s ease; }
+  .pltile:nth-child(2){ background:var(--accent); }
+  .pltile:hover{ background:var(--accent); }
+  .pltile:nth-child(2):hover{ background:var(--ink); }
+  .plname{ font-family:'Anton',sans-serif; font-size:30px; line-height:.95; text-transform:uppercase; }
+  .plmeta{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; opacity:.85; display:flex; justify-content:space-between; }
+
+  /* pinterest tile */
+  .pintile{ flex:0 0 auto; width:230px; height:220px; background:#f3f2ee; border:1px solid var(--line); color:var(--ink); text-decoration:none; padding:18px; display:flex; flex-direction:column; justify-content:space-between; }
+  .pintile .pk{ font-family:'Anton',sans-serif; font-size:20px; text-transform:uppercase; }
+  .pintile .pm{ font-size:12px; color:var(--muted); letter-spacing:.06em; }
+
+  .note-banner{ margin-top:8vh; padding:16px 18px; background:#f6f5f1; font-size:13px; color:#6f6d65; line-height:1.6; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">Off the clock</div>
+    <div class="title">Currently</div>
+    <div class="date">Summer 2026 &nbsp;·&nbsp; a living snapshot</div>
+    <div class="rule"></div>
+
+    <div class="lane">
+      <div class="lane-head"><div class="lane-label">Wearing</div><div class="lane-note">Casual preppy, lots of layering</div></div>
+      <div class="track">
+        <div class="tile garment"><div class="shot"><span>oxford button-down</span></div></div>
+        <div class="tile garment"><div class="shot"><span>barrel-leg jeans</span></div></div>
+        <div class="tile garment"><div class="shot"><span>wide-leg khaki shorts</span></div></div>
+        <div class="tile garment"><div class="shot"><span>boat-neck knit</span></div></div>
+        <div class="tile garment"><div class="shot"><span>cotton coquette blouse</span></div></div>
+        <div class="tile garment"><div class="shot"><span>solid-color sneakers</span></div></div>
+        <div class="tile garment"><div class="shot"><span>the perfect white tee</span></div></div>
+        <div class="tile garment"><div class="shot"><span>backless top</span></div></div>
+        <div class="tile garment"><div class="shot"><span>baggy wide-leg trousers</span></div></div>
+      </div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-head"><div class="lane-label">Reading</div></div>
+      <div class="track">
+        <div class="tile cover"><div class="shot"><img src="assets/currently/read-american-prison.jpg" alt="American Prison"></div><div class="cap">American Prison — Shane Bauer</div></div>
+        <div class="tile cover"><div class="shot"><img src="assets/currently/read-radical-chic.jpg" alt="Radical Chic"></div><div class="cap">Radical Chic &amp; Mau-Mauing the Flak Catchers — Tom Wolfe</div></div>
+      </div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-head"><div class="lane-label">Watching</div></div>
+      <div class="track">
+        <div class="tile poster"><div class="shot"><img src="assets/currently/watch-sorry-baby.jpg" alt="Sorry, Baby"></div><div class="cap">Sorry, Baby</div></div>
+        <div class="tile poster"><div class="shot"><img src="assets/currently/watch-howls-castle.jpg" alt="Howl's Moving Castle"></div><div class="cap">Howl's Moving Castle</div></div>
+        <div class="tile poster"><div class="shot"><img src="assets/currently/watch-the-americans.jpg" alt="The Americans"></div><div class="cap">The Americans</div></div>
+        <div class="tile poster"><div class="shot"><img src="assets/currently/watch-mindhunter.jpg" alt="Mindhunter"></div><div class="cap">Mindhunter</div></div>
+        <div class="tile poster"><div class="shot"><img src="assets/currently/watch-hill-house.jpg" alt="The Haunting of Hill House"></div><div class="cap">The Haunting of Hill House</div></div>
+      </div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-head"><div class="lane-label">Listening</div><div class="lane-note">Charlie Burg, Ryan Beatty, Jensen McRae on repeat</div></div>
+      <div class="track">
+        <a class="pltile" href="https://open.spotify.com/playlist/6Wr9pP0ghWDITdZGw1mpRG" target="_blank" rel="noopener"><div class="plname">summa cum<br>lawd 26</div><div class="plmeta"><span>29 tracks</span><span>↗</span></div></a>
+        <a class="pltile" href="https://open.spotify.com/playlist/6b5VjK3rEvE6w1QnjJHRcB" target="_blank" rel="noopener"><div class="plname">clutching</div><div class="plmeta"><span>93 tracks</span><span>↗</span></div></a>
+        <a class="pltile" href="https://open.spotify.com/playlist/3eh1dNYkqJxliEYXBgeKFo" target="_blank" rel="noopener"><div class="plname">spirits</div><div class="plmeta"><span>playlist</span><span>↗</span></div></a>
+      </div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-head"><div class="lane-label">Looking at</div></div>
+      <div class="track">
+        <div class="tile wide"><div class="shot"><img src="assets/currently/look-stahl-house.jpg" alt="Stahl House"></div><div class="cap">Stahl House</div></div>
+        <div class="tile wide"><div class="shot"><img src="assets/currently/look-kaufmann-house.jpg" alt="Kaufmann Desert House"></div><div class="cap">Kaufmann Desert House</div></div>
+        <div class="tile wide"><div class="shot"><img src="assets/currently/look-farnsworth-house.jpg" alt="Farnsworth House"></div><div class="cap">Farnsworth House</div></div>
+        <div class="tile wide"><div class="shot"><img src="assets/currently/look-eames-house.jpg" alt="Eames House"></div><div class="cap">Eames House</div></div>
+        <a class="pintile" href="https://www.pinterest.com/biancaapagano/you-can-be/" target="_blank" rel="noopener"><div class="pk">you can be ↗</div><div class="pm">a Pinterest board</div></a>
+      </div>
+    </div>
+
+    <div class="note-banner">Preview only. Wearing shows placeholder tiles until your 9 garment photos land. Covers, posters, and architecture are the real images (hover any to see it bloom from black and white to color). Playlists are live links to Spotify.</div>
+  </div>
+</body>
+</html>
