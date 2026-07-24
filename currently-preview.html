@@ -47,13 +47,14 @@
   .garment .shot{ height:230px; background:#efeee9; display:flex; align-items:center; justify-content:center; text-align:center; padding:12px; }
   .garment .shot span{ font-size:12px; color:#9a988f; line-height:1.35; }
 
-  /* listening: flat anton tiles, no image */
-  .pltile{ flex:0 0 auto; width:230px; height:230px; background:var(--ink); color:#fff; padding:20px; display:flex; flex-direction:column; justify-content:space-between; text-decoration:none; transition:background .3s ease; }
-  .pltile:nth-child(2){ background:var(--accent); }
-  .pltile:hover{ background:var(--accent); }
-  .pltile:nth-child(2):hover{ background:var(--ink); }
-  .plname{ font-family:'Anton',sans-serif; font-size:30px; line-height:.95; text-transform:uppercase; }
-  .plmeta{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; opacity:.85; display:flex; justify-content:space-between; }
+  /* listening: real spotify embeds, framed in site style */
+  .plcard{ flex:0 0 auto; width:320px; }
+  .plcard-head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; border-bottom:2px solid var(--ink); padding-bottom:8px; margin-bottom:12px; }
+  .plcard-name{ font-family:'Anton',sans-serif; font-size:26px; line-height:.92; text-transform:uppercase; }
+  .plcard-name a{ color:var(--ink); text-decoration:none; }
+  .plcard-name a:hover{ color:var(--accent); }
+  .plcard-time{ flex:0 0 auto; font-family:'Anton',sans-serif; font-size:14px; letter-spacing:.04em; color:var(--accent); white-space:nowrap; }
+  .plcard iframe{ display:block; border:0; width:100%; }
 
   /* pinterest tile */
   .pintile{ flex:0 0 auto; width:230px; height:220px; background:#f3f2ee; border:1px solid var(--line); color:var(--ink); text-decoration:none; padding:18px; display:flex; flex-direction:column; justify-content:space-between; }
@@ -88,8 +89,9 @@
     <div class="lane">
       <div class="lane-head"><div class="lane-label">Reading</div></div>
       <div class="track">
-        <div class="tile cover"><div class="shot"><img src="assets/currently/read-american-prison.jpg" alt="American Prison"></div><div class="cap">American Prison — Shane Bauer</div></div>
-        <div class="tile cover"><div class="shot"><img src="assets/currently/read-radical-chic.jpg" alt="Radical Chic"></div><div class="cap">Radical Chic &amp; Mau-Mauing the Flak Catchers — Tom Wolfe</div></div>
+        <div class="tile cover"><div class="shot"><img src="assets/currently/read-american-prison.jpg" alt="American Prison"></div><div class="cap">American Prison, Shane Bauer</div></div>
+        <div class="tile cover"><div class="shot"><img src="assets/currently/read-radical-chic.jpg" alt="Radical Chic"></div><div class="cap">Radical Chic &amp; Mau-Mauing the Flak Catchers, Tom Wolfe</div></div>
+        <div class="tile cover"><div class="shot"><img src="assets/currently/read-calculation-volume.jpg" alt="On the Calculation of Volume"></div><div class="cap">On the Calculation of Volume, Solvej Balle</div></div>
       </div>
     </div>
 
@@ -107,9 +109,18 @@
     <div class="lane">
       <div class="lane-head"><div class="lane-label">Listening</div><div class="lane-note">Charlie Burg, Ryan Beatty, Jensen McRae on repeat</div></div>
       <div class="track">
-        <a class="pltile" href="https://open.spotify.com/playlist/6Wr9pP0ghWDITdZGw1mpRG" target="_blank" rel="noopener"><div class="plname">summa cum<br>lawd 26</div><div class="plmeta"><span>29 tracks</span><span>↗</span></div></a>
-        <a class="pltile" href="https://open.spotify.com/playlist/6b5VjK3rEvE6w1QnjJHRcB" target="_blank" rel="noopener"><div class="plname">clutching</div><div class="plmeta"><span>93 tracks</span><span>↗</span></div></a>
-        <a class="pltile" href="https://open.spotify.com/playlist/3eh1dNYkqJxliEYXBgeKFo" target="_blank" rel="noopener"><div class="plname">spirits</div><div class="plmeta"><span>playlist</span><span>↗</span></div></a>
+        <div class="plcard">
+          <div class="plcard-head"><div class="plcard-name"><a href="https://open.spotify.com/playlist/6Wr9pP0ghWDITdZGw1mpRG" target="_blank" rel="noopener">summa cum lawd 26</a></div><div class="plcard-time">1h 36m</div></div>
+          <iframe src="https://open.spotify.com/embed/playlist/6Wr9pP0ghWDITdZGw1mpRG?utm_source=generator" height="380" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        </div>
+        <div class="plcard">
+          <div class="plcard-head"><div class="plcard-name"><a href="https://open.spotify.com/playlist/6b5VjK3rEvE6w1QnjJHRcB" target="_blank" rel="noopener">clutching</a></div><div class="plcard-time">5h 39m</div></div>
+          <iframe src="https://open.spotify.com/embed/playlist/6b5VjK3rEvE6w1QnjJHRcB?utm_source=generator" height="380" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        </div>
+        <div class="plcard">
+          <div class="plcard-head"><div class="plcard-name"><a href="https://open.spotify.com/playlist/3eh1dNYkqJxliEYXBgeKFo" target="_blank" rel="noopener">spirits</a></div><div class="plcard-time">5h 58m</div></div>
+          <iframe src="https://open.spotify.com/embed/playlist/3eh1dNYkqJxliEYXBgeKFo?utm_source=generator" height="380" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        </div>
       </div>
     </div>
 
