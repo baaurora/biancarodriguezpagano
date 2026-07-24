@@ -68,6 +68,7 @@
   .pl-a{ font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .pl-d{ font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
   .pl-row.noprev{ cursor:default; } .pl-row.noprev:hover{ background:none; }
+  .pl-vibe{ font-size:13px; font-weight:300; line-height:1.45; color:#4a473d; margin:11px 0 2px; }
   .pl-hint{ font-size:11px; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin:9px 0 2px; }
 
   /* pinterest tile */
@@ -151,6 +152,7 @@
       var head=document.createElement('div'); head.className='plcard-head';
       head.innerHTML='<div class="plcard-name"><a href="https://open.spotify.com/playlist/'+pl.id+'" target="_blank" rel="noopener">'+esc(pl.name)+'</a></div><div class="plcard-time">'+pl.total+'</div>';
       card.appendChild(head);
+      if(pl.vibe){ var vibe=document.createElement('div'); vibe.className='pl-vibe'; vibe.textContent=pl.vibe; card.appendChild(vibe); }
       var hint=document.createElement('div'); hint.className='pl-hint'; hint.textContent=pl.count+' tracks · 30-sec previews'; card.appendChild(hint);
       var list=document.createElement('div'); list.className='pl-list';
       pl.tracks.forEach(function(tk,i){
