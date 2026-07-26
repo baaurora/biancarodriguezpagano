@@ -296,7 +296,7 @@
   @media (max-width:820px){ .fb-nav{ width:42px; height:42px; font-size:20px; } .fb-page{ max-height:60vh; } }
 
   /* ---------- interests page ---------- */
-  #about .intlink{ margin-top:10vh; display:inline-block; }
+  #about .intlink{ margin-top:10vh; display:inline-block; text-decoration:none; color:var(--ink); }
   .interests{ position:fixed; inset:0; z-index:117; background:var(--bg); overflow-y:auto; clip-path:inset(0 0 100% 0); transition:clip-path .7s cubic-bezier(.7,0,.15,1); }
   .interests.open{ clip-path:inset(0 0 0 0); }
   .int-close{ position:fixed; top:24px; right:34px; background:none; border:0; cursor:pointer; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink); z-index:3; }
@@ -387,8 +387,9 @@
       <li><a href="#about"><span class="num">01</span> About</a></li>
       <li><a href="#current"><span class="num">02</span> Current Work</a></li>
       <li><a href="#work"><span class="num">03</span> Portfolio</a></li>
-      <li><a href="assets/Bianca-Rodriguez-Pagano-Resume.docx" target="_blank" rel="noopener"><span class="num">04</span> Resume</a></li>
-      <li><a href="#say"><span class="num">05</span> Contact</a></li>
+      <li><a href="currently.html"><span class="num">04</span> Currently</a></li>
+      <li><a href="assets/Bianca-Rodriguez-Pagano-Resume.docx" target="_blank" rel="noopener"><span class="num">05</span> Resume</a></li>
+      <li><a href="#say"><span class="num">06</span> Contact</a></li>
     </ol>
     <div class="foot">
       <a href="mailto:bianca.r.pagano@gmail.com">bianca.r.pagano@gmail.com</a>
@@ -440,8 +441,8 @@
         <p>My work has since evolved into the odd mix where product strategy, design, and social impact meet, grounded in restorative justice and a belief that good products can do real good.</p>
       </div>
     </div>
-    <!-- Interests page pulled from the public site 2026-07-24 pending a redesign; markup + JS below left intact. Restore this link to bring it back. -->
-    <!-- <button class="viewall intlink fade" id="interestsBtn">Learn about my interests →</button> -->
+    <!-- Old floating-word interests page retired; replaced by the Currently page (currently.html). Its markup + JS below are left intact but unlinked. -->
+    <a class="viewall intlink fade" href="currently.html">What I'm into right now →</a>
   </section>
 
   <!-- ============ CHAPTER 02 — CURRENT WORK ============ -->
