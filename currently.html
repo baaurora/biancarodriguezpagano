@@ -10,193 +10,310 @@
 <style>
   :root{ --bg:#ffffff; --ink:#0a0a0a; --muted:#8a8a8a; --line:#e7e7e7; --accent:#1b3cff; }
   *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; overflow:hidden; }
   body{ background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; }
-  .wrap{ max-width:1200px; margin:0 auto; padding:5vh 6vw 14vh; }
-  .backlink{ display:inline-flex; align-items:center; gap:8px; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; margin-bottom:6vh; transition:color .3s ease; }
+
+  /* page curtain: the same blue panel and motion as the menu, used between pages */
+  .curtain{ position:fixed; inset:0; z-index:9000; background:var(--accent); pointer-events:none; clip-path:inset(0 0 100% 0); }
+  .curtain.cover{ clip-path:inset(0 0 0 0); }
+  .curtain.moving{ transition:clip-path .8s cubic-bezier(.7,0,.15,1); }
+
+  /* masthead, pinned over the canvas */
+  .mast{ position:fixed; top:0; left:0; z-index:60; padding:26px 34px 20px; pointer-events:none; background:rgba(255,255,255,.94); }
+  .backlink{ pointer-events:auto; display:inline-flex; align-items:center; gap:8px; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .25s; }
   .backlink:hover{ color:var(--accent); }
   .backlink span{ font-family:'Anton',sans-serif; }
-  .portal{ position:fixed; inset:0; z-index:9000; background:#04060f url('assets/blue/blue-door.jpg') center 42%/cover no-repeat; opacity:0; visibility:hidden; pointer-events:none; will-change:transform,opacity; }
-  .portal.cover{ opacity:1; visibility:visible; transform:scale(2.6); }
+  .eyebrow{ margin-top:22px; font-family:'Anton',sans-serif; letter-spacing:.18em; font-size:11px; color:var(--accent); text-transform:uppercase; }
+  .title{ font-family:'Anton',sans-serif; font-size:clamp(40px,5vw,64px); line-height:.9; text-transform:uppercase; margin:6px 0 6px; }
+  .date{ font-size:11px; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; }
+  .hint{ position:fixed; top:30px; right:34px; z-index:20; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); pointer-events:none; }
 
-  /* masthead */
-  .eyebrow{ font-family:'Anton',sans-serif; letter-spacing:.18em; font-size:12px; color:var(--accent); text-transform:uppercase; }
-  .title{ font-family:'Anton',sans-serif; font-size:clamp(64px,13vw,150px); line-height:.86; text-transform:uppercase; margin:10px 0 8px; }
-  .date{ font-size:13px; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; }
-  .rule{ height:1px; background:var(--line); margin:5vh 0 2vh; }
+  /* the endless canvas: a faint dot grid that pans with the pins */
+  .canvas{ position:fixed; inset:0; overflow:hidden; cursor:grab; touch-action:none; user-select:none; -webkit-user-select:none;
+           background-image:radial-gradient(circle, #d6d6d6 1.1px, transparent 1.4px); background-size:28px 28px; }
+  .canvas.dragging{ cursor:grabbing; }
+  .world{ position:absolute; top:0; left:0; transform-origin:0 0; will-change:transform; }
+  .copy{ position:absolute; top:0; left:0; }
 
-  /* lane */
-  .lane{ margin:5.5vh 0; }
-  .lane-head{ display:flex; align-items:baseline; gap:16px; margin-bottom:20px; }
-  .lane-label{ font-family:'Anton',sans-serif; font-size:clamp(22px,2.6vw,34px); text-transform:uppercase; letter-spacing:.02em; }
-  .lane-note{ font-size:14px; color:var(--muted); font-weight:300; }
-  .track{ display:flex; gap:18px; overflow-x:auto; padding-bottom:12px; scrollbar-width:thin; }
-  .track::-webkit-scrollbar{ height:5px; }
-  .track::-webkit-scrollbar-thumb{ background:#d8d8d8; }
+  .cluster-label{ position:absolute; z-index:30; font-family:'Anton',sans-serif; font-size:44px; line-height:1; text-transform:uppercase; letter-spacing:.01em; white-space:nowrap; }
+  .cluster-label small{ display:block; margin-top:10px; font-family:'Inter',sans-serif; font-size:13px; font-weight:300; letter-spacing:.02em; text-transform:none; color:var(--muted); }
 
-  /* bare sharp-edged tiles — no boxes, grayscale to color on hover */
-  .tile{ flex:0 0 auto; position:relative; overflow:hidden; }
-  .tile img{ display:block; width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.02); transition:filter .5s ease, transform .5s ease; }
-  .tile:hover img{ filter:grayscale(0) contrast(1); }
-  .tile .cap{ font-size:12px; color:var(--muted); margin-top:8px; letter-spacing:.02em; }
+  /* pins: black and white until you hover, caption wipes in below */
+  .pin{ position:absolute; cursor:pointer; transition:transform .35s cubic-bezier(.16,1,.3,1); }
+  .pin:hover,.pin.playing{ z-index:40 !important; }
+  .pin .shot{ width:100%; height:100%; overflow:hidden; background:#f1f1f1; box-shadow:0 10px 26px rgba(0,0,0,.10); }
+  .pin img{ display:block; width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.02); transition:filter .45s ease, transform .45s ease; pointer-events:none; -webkit-user-drag:none; }
+  .pin:hover img,.pin.playing img{ filter:grayscale(0) contrast(1); transform:scale(1.03); }
+  .pin .cap{ position:absolute; left:0; top:100%; margin-top:8px; padding:5px 8px; background:#fff; box-shadow:0 4px 14px rgba(0,0,0,.08); width:max-content; max-width:240px; font-size:12px; line-height:1.4; letter-spacing:.02em; color:var(--ink);
+             clip-path:inset(0 0 100% 0); transition:clip-path .35s cubic-bezier(.16,1,.3,1); pointer-events:none; }
+  .pin .cap b{ display:block; font-weight:500; }
+  .pin .cap span{ color:var(--muted); }
+  .pin:hover .cap,.pin.playing .cap{ clip-path:inset(0 0 0 0); }
+  .pin.song .play{ position:absolute; right:8px; bottom:8px; width:28px; height:28px; border-radius:50%; background:var(--accent); color:#fff; font-size:11px; display:flex; align-items:center; justify-content:center; transform:scale(0); transition:transform .3s cubic-bezier(.16,1,.3,1); }
+  .pin.song:hover .play,.pin.song.playing .play{ transform:scale(1); }
+  .pin.placeholder .shot{ background:var(--accent); display:flex; align-items:flex-end; padding:12px; }
+  .pin.placeholder .shot i{ font-style:normal; font-family:'Anton',sans-serif; font-size:22px; color:#fff; text-transform:uppercase; line-height:1; }
 
-  .poster{ width:210px; }
-  .poster .shot{ height:315px; }
-  .cover{ width:210px; }
-  .cover .shot{ height:315px; }
-  .wide{ width:340px; }
-  .wide .shot{ height:220px; }
+  /* floating section bar */
+  .sections{ position:fixed; left:50%; bottom:26px; transform:translateX(-50%); z-index:20; display:flex; gap:4px; padding:5px; background:rgba(255,255,255,.92); border:1px solid var(--line); border-radius:100px; box-shadow:0 10px 30px rgba(0,0,0,.08); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); max-width:calc(100vw - 32px); overflow-x:auto; scrollbar-width:none; }
+  .sections::-webkit-scrollbar{ display:none; }
+  .sections button{ flex:0 0 auto; background:none; border:0; border-radius:100px; padding:10px 18px; font-family:'Inter',sans-serif; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); cursor:pointer; transition:background .3s, color .3s; }
+  .sections button:hover{ color:var(--accent); }
+  .sections button.on{ background:var(--accent); color:#fff; }
 
-  /* garment tiles (pins from the 'you can be' board) */
-  .garment{ width:200px; }
-  .garment .shot{ height:266px; }
+  .zoomctl{ position:fixed; right:26px; bottom:26px; z-index:20; display:flex; gap:4px; padding:5px; background:rgba(255,255,255,.92); border:1px solid var(--line); border-radius:100px; box-shadow:0 10px 30px rgba(0,0,0,.08); }
+  .zoomctl button{ width:36px; height:36px; border:0; border-radius:50%; background:none; font-size:18px; line-height:1; color:var(--ink); cursor:pointer; transition:background .25s, color .25s; }
+  .zoomctl button:hover{ background:var(--accent); color:#fff; }
 
-  /* listening: custom player in the site style (Spotify data, our skin) */
-  .plcard{ flex:0 0 auto; width:340px; }
-  .plcard-head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; border-bottom:2px solid var(--ink); padding-bottom:8px; margin-bottom:0; }
-  .plcard-name{ font-family:'Anton',sans-serif; font-size:26px; line-height:.92; text-transform:uppercase; }
-  .plcard-name a{ color:var(--ink); text-decoration:none; }
-  .plcard-name a:hover{ color:var(--accent); }
-  .plcard-time{ flex:0 0 auto; font-family:'Anton',sans-serif; font-size:14px; letter-spacing:.04em; color:var(--accent); white-space:nowrap; }
-  .pl-list{ max-height:392px; overflow-y:auto; scrollbar-width:thin; }
-  .pl-list::-webkit-scrollbar{ width:5px; } .pl-list::-webkit-scrollbar-thumb{ background:#d8d8d8; }
-  .pl-row{ display:grid; grid-template-columns:20px minmax(0,1fr) auto; align-items:center; gap:11px; padding:9px 2px; border-bottom:1px solid var(--line); cursor:pointer; }
-  .pl-row:hover{ background:#f5f4f0; }
-  .pl-row.playing .pl-t{ color:var(--accent); }
-  .pl-idx{ font-size:12px; color:var(--muted); text-align:center; font-variant-numeric:tabular-nums; }
-  .pl-row:hover .pl-idx .n, .pl-row.playing .pl-idx .n{ display:none; }
-  .pl-idx .g{ display:none; color:var(--accent); font-size:11px; }
-  .pl-row:hover .pl-idx .g, .pl-row.playing .pl-idx .g{ display:inline; }
-  .pl-meta{ min-width:0; }
-  .pl-t{ font-size:14px; font-weight:500; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .pl-a{ font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .pl-d{ font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
-  .pl-row.noprev{ cursor:default; } .pl-row.noprev:hover{ background:none; }
-  .pl-vibe{ font-size:13px; font-weight:300; line-height:1.45; color:#4a473d; margin:11px 0 2px; }
-  .pl-hint{ font-size:11px; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin:9px 0 2px; }
+  /* enlarged pin */
+  .lightbox{ position:fixed; inset:0; z-index:50; background:rgba(255,255,255,.96); display:none; align-items:center; justify-content:center; flex-direction:column; gap:16px; padding:6vh 6vw; cursor:zoom-out; }
+  .lightbox.open{ display:flex; }
+  .lightbox img{ max-width:100%; max-height:80vh; object-fit:contain; box-shadow:0 22px 55px rgba(0,0,0,.18); }
+  .lightbox p{ font-size:13px; letter-spacing:.04em; color:var(--muted); }
 
-  /* pinterest tile */
-  .pintile{ flex:0 0 auto; width:230px; height:220px; background:#f3f2ee; border:1px solid var(--line); color:var(--ink); text-decoration:none; padding:18px; display:flex; flex-direction:column; justify-content:space-between; }
-  .pintile .pk{ font-family:'Anton',sans-serif; font-size:20px; text-transform:uppercase; }
-  .pintile .pm{ font-size:12px; color:var(--muted); letter-spacing:.06em; }
-
-  .note-banner{ margin-top:8vh; padding:16px 18px; background:#f6f5f1; font-size:13px; color:#6f6d65; line-height:1.6; }
+  @media (max-width:900px){ .sections button{ padding:9px 13px; letter-spacing:.06em; } }
+  @media (max-width:700px){
+    .mast{ padding:16px 18px; }
+    .title{ font-size:36px; }
+    .hint{ display:none; }
+    .sections{ bottom:16px; }
+    .zoomctl{ right:16px; bottom:72px; }
+    .sections button{ padding:9px 13px; font-size:11px; letter-spacing:.06em; }
+  }
 </style>
 </head>
 <body>
-  <div class="portal cover" aria-hidden="true"></div>
-  <div class="wrap">
+  <div class="curtain cover" id="curtain" aria-hidden="true"></div>
+
+  <div class="mast">
     <a class="backlink" href="index.html">← <span>Bianca Rodriguez Pagano</span></a>
     <div class="eyebrow">Off the clock</div>
     <div class="title">Currently</div>
     <div class="date">Summer 2026</div>
-    <div class="rule"></div>
-
-    <div class="lane">
-      <div class="lane-head"><div class="lane-label">Reading</div></div>
-      <div class="track">
-        <div class="tile cover"><div class="shot"><img src="assets/currently/read-calculation-volume.jpg" alt="On the Calculation of Volume"></div><div class="cap">On the Calculation of Volume, Solvej Balle</div></div>
-        <div class="tile cover"><div class="shot"><img src="assets/currently/read-american-prison.jpg" alt="American Prison"></div><div class="cap">American Prison, Shane Bauer</div></div>
-        <div class="tile cover"><div class="shot"><img src="assets/currently/read-radical-chic.jpg" alt="Radical Chic"></div><div class="cap">Radical Chic &amp; Mau-Mauing the Flak Catchers, Tom Wolfe</div></div>
-      </div>
-    </div>
-
-    <div class="lane">
-      <div class="lane-head"><div class="lane-label">Watching</div></div>
-      <div class="track">
-        <div class="tile poster"><div class="shot"><img src="assets/currently/watch-sorry-baby.jpg" alt="Sorry, Baby"></div><div class="cap">Sorry, Baby</div></div>
-        <div class="tile poster"><div class="shot"><img src="assets/currently/watch-howls-castle.jpg" alt="Howl's Moving Castle"></div><div class="cap">Howl's Moving Castle</div></div>
-        <div class="tile poster"><div class="shot"><img src="assets/currently/watch-the-americans.jpg" alt="The Americans"></div><div class="cap">The Americans</div></div>
-        <div class="tile poster"><div class="shot"><img src="assets/currently/watch-mindhunter.jpg" alt="Mindhunter"></div><div class="cap">Mindhunter</div></div>
-        <div class="tile poster"><div class="shot"><img src="assets/currently/watch-hill-house.jpg" alt="The Haunting of Hill House"></div><div class="cap">The Haunting of Hill House</div></div>
-      </div>
-    </div>
-
-    <div class="lane">
-      <div class="lane-head"><div class="lane-label">Listening</div><div class="lane-note">Charlie Burg, Ryan Beatty, Jensen McRae on repeat</div></div>
-      <div class="track" id="listeningTrack"></div>
-    </div>
-
-    <div class="lane">
-      <div class="lane-head"><div class="lane-label">Looking at</div></div>
-      <div class="track">
-        <div class="tile wide"><div class="shot"><img src="assets/currently/look-stahl-house.jpg" alt="Stahl House"></div><div class="cap">Stahl House</div></div>
-        <div class="tile wide"><div class="shot"><img src="assets/currently/look-kaufmann-house.jpg" alt="Kaufmann Desert House"></div><div class="cap">Kaufmann Desert House</div></div>
-        <div class="tile wide"><div class="shot"><img src="assets/currently/look-farnsworth-house.jpg" alt="Farnsworth House"></div><div class="cap">Farnsworth House</div></div>
-        <div class="tile wide"><div class="shot"><img src="assets/currently/look-eames-house.jpg" alt="Eames House"></div><div class="cap">Eames House</div></div>
-      </div>
-    </div>
-
-    <div class="lane">
-      <div class="lane-head"><div class="lane-label">Wearing</div><div class="lane-note">Casual preppy, lots of layering</div></div>
-      <div class="track">
-        <div class="tile garment"><div class="shot"><img src="assets/currently/wear-oxford.jpg" alt="oxford button-downs"></div><div class="cap">oxford button-downs</div></div>
-        <div class="tile garment"><div class="shot"><img src="assets/currently/wear-jeans.jpg" alt="barrel-leg jeans"></div><div class="cap">barrel-leg jeans</div></div>
-        <div class="tile garment"><div class="shot"><img src="assets/currently/wear-shorts.jpg" alt="wide-leg khaki shorts"></div><div class="cap">wide-leg khaki shorts</div></div>
-        <div class="tile garment"><div class="shot"><img src="assets/currently/wear-boatneck.jpg" alt="boat-neck knits"></div><div class="cap">boat-neck knits</div></div>
-        <div class="tile garment"><div class="shot"><img src="assets/currently/wear-blouse.jpg" alt="cotton coquette blouses"></div><div class="cap">cotton coquette blouses</div></div>
-        <div class="tile garment"><div class="shot"><img src="assets/currently/wear-sneakers.jpg" alt="solid-color sneakers"></div><div class="cap">solid-color sneakers</div></div>
-        <div class="tile garment"><div class="shot"><img src="assets/currently/wear-whitetee.jpg" alt="perfect white tees"></div><div class="cap">perfect white tees</div></div>
-        <div class="tile garment"><div class="shot"><img src="assets/currently/wear-backless.jpg" alt="backless tops"></div><div class="cap">backless tops</div></div>
-        <div class="tile garment"><div class="shot"><img src="assets/currently/wear-trousers.jpg" alt="baggy wide-leg trousers"></div><div class="cap">baggy wide-leg trousers</div></div>
-      </div>
-    </div>
-
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
+  <div class="hint">Drag to explore · pinch to zoom</div>
+
+  <div class="canvas" id="canvas" aria-label="Currently: a board of pins you can drag around"><div class="world" id="world"></div></div>
+  <nav class="sections" id="sections" aria-label="Sections"></nav>
+  <div class="zoomctl" aria-label="Zoom"><button type="button" id="zoomOut" aria-label="Zoom out">&minus;</button><button type="button" id="zoomIn" aria-label="Zoom in">+</button></div>
+  <div class="lightbox" id="lightbox"><img alt=""><p></p></div>
+
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="assets/currently/songs.js"></script>
   <script>
   (function(){
-    var rm=matchMedia('(prefers-reduced-motion:reduce)').matches, G=window.gsap;
-    if(window.Lenis && !rm){ var lenis=new Lenis({duration:1.1}); window.__lenis=lenis; (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(); }
-    var portal=document.querySelector('.portal');
-    if(portal && portal.classList.contains('cover')){
-      if(rm||!G){ portal.style.display='none'; }
-      else { G.set(portal,{transformOrigin:'50% 45%'}); G.to(portal,{scale:1,opacity:0,duration:1.0,ease:'power2.out',onComplete:function(){ portal.style.display='none'; }}); }
-    }
-    function zoomTo(href){
-      if(rm||!G||!portal){ location.href=href; return; }
-      portal.style.display=''; portal.classList.remove('cover');
-      G.set(portal,{visibility:'visible',scale:1,opacity:0,transformOrigin:'50% 45%'});
-      G.timeline({onComplete:function(){ location.href=href; }})
-        .to(portal,{opacity:1,duration:.3,ease:'power1.out'})
-        .to(portal,{scale:2.7,duration:.85,ease:'power2.in'},0.05);
-    }
+    var rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    // arrive under the blue curtain and lift it, leave by dropping it again (same motion as the menu)
+    var curtain=document.getElementById('curtain');
+    try{ sessionStorage.removeItem('curtain'); }catch(e){}
+    requestAnimationFrame(function(){ curtain.classList.add('moving'); curtain.offsetHeight; curtain.classList.remove('cover'); });
     [].slice.call(document.querySelectorAll('a.backlink')).forEach(function(a){
-      a.addEventListener('click',function(e){ e.preventDefault(); zoomTo(a.getAttribute('href')); });
-    });
-  })();
-  </script>
-  <script src="assets/currently/playlists.js"></script>
-  <script>
-  (function(){
-    var track=document.getElementById('listeningTrack');
-    if(!track||!window.PLAYLISTS) return;
-    function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-    var audio=new Audio(); var current=null;
-    function reset(row){ if(!row) return; row.classList.remove('playing'); var g=row.querySelector('.g'); if(g)g.textContent='▶'; }
-    function stop(){ reset(current); current=null; audio.pause(); }
-    window.PLAYLISTS.forEach(function(pl){
-      var card=document.createElement('div'); card.className='plcard';
-      var head=document.createElement('div'); head.className='plcard-head';
-      head.innerHTML='<div class="plcard-name"><a href="https://open.spotify.com/playlist/'+pl.id+'" target="_blank" rel="noopener">'+esc(pl.name)+'</a></div><div class="plcard-time">'+pl.total+'</div>';
-      card.appendChild(head);
-      if(pl.vibe){ var vibe=document.createElement('div'); vibe.className='pl-vibe'; vibe.textContent=pl.vibe; card.appendChild(vibe); }
-      var hint=document.createElement('div'); hint.className='pl-hint'; hint.textContent=pl.count+' tracks · 30-sec previews'; card.appendChild(hint);
-      var list=document.createElement('div'); list.className='pl-list';
-      pl.tracks.forEach(function(tk,i){
-        var row=document.createElement('div'); row.className='pl-row'+(tk.p?'':' noprev');
-        row.innerHTML='<div class="pl-idx"><span class="n">'+(i+1)+'</span><span class="g">▶</span></div>'+
-          '<div class="pl-meta"><div class="pl-t">'+esc(tk.t)+'</div><div class="pl-a">'+esc(tk.a)+'</div></div>'+
-          '<div class="pl-d">'+tk.d+'</div>';
-        if(tk.p){ row.addEventListener('click',function(){
-          if(current===row){ stop(); return; }
-          stop(); audio.src=tk.p; var pr=audio.play(); if(pr&&pr['catch'])pr['catch'](function(){}); current=row; row.classList.add('playing'); row.querySelector('.g').textContent='❚❚';
-        }); }
-        list.appendChild(row);
+      a.addEventListener('click',function(e){
+        e.preventDefault(); var href=a.getAttribute('href');
+        try{ sessionStorage.setItem('curtain','1'); }catch(e2){}
+        if(rm){ location.href=href; return; }
+        curtain.classList.add('cover');
+        setTimeout(function(){ location.href=href; }, 800);
       });
-      card.appendChild(list); track.appendChild(card);
     });
-    audio.addEventListener('ended',function(){ reset(current); current=null; });
+
+    // ---- board content: one cluster per section, laid out in world coordinates ----
+    var C='assets/currently/';
+    var SECTIONS=[
+      { key:'reading', label:'Reading', x:240, y:260, cols:3, w:200, h:300, gap:40, pins:[
+        { img:C+'read-calculation-volume.jpg', t:'On the Calculation of Volume', a:'Solvej Balle' },
+        { img:C+'read-american-prison.jpg', t:'American Prison', a:'Shane Bauer' },
+        { img:C+'read-radical-chic.jpg', t:'Radical Chic & Mau-Mauing the Flak Catchers', a:'Tom Wolfe' },
+        { img:C+'read-looking-for-alaska.jpg', t:'Looking for Alaska', a:'John Green' },
+        { img:C+'read-peoples-history.jpg', t:"A People's History of the United States", a:'Howard Zinn' },
+        { img:C+'read-five-people.jpg', t:'The Five People You Meet in Heaven', a:'Mitch Albom' } ] },
+      { key:'watching', label:'Watching', x:1120, y:200, cols:5, w:190, h:285, gap:36, pins:[
+        { img:C+'watch-sorry-baby.jpg', t:'Sorry, Baby' },
+        { img:C+'watch-howls-castle.jpg', t:"Howl's Moving Castle" },
+        { img:C+'watch-the-americans.jpg', t:'The Americans' },
+        { img:C+'watch-mindhunter.jpg', t:'Mindhunter' },
+        { img:C+'watch-hill-house.jpg', t:'The Haunting of Hill House' } ] },
+      { key:'wearing', label:'Wearing', note:'Casual preppy, lots of layering', x:2480, y:300, cols:3, w:190, h:253, gap:34, pins:[
+        { img:C+'wear-oxford.jpg', t:'Oxford button-downs' },
+        { img:C+'wear-jeans.jpg', t:'Barrel-leg jeans' },
+        { img:C+'wear-shorts.jpg', t:'Wide-leg khaki shorts' },
+        { img:C+'wear-boatneck.jpg', t:'Boat-neck knits' },
+        { img:C+'wear-blouse.jpg', t:'Cotton coquette blouses' },
+        { img:C+'wear-sneakers.jpg', t:'Solid-color sneakers' },
+        { img:C+'wear-whitetee.jpg', t:'Perfect white tees' },
+        { img:C+'wear-backless.jpg', t:'Backless tops' },
+        { img:C+'wear-trousers.jpg', t:'Baggy wide-leg trousers' } ] },
+      { key:'listening', label:'Listening', note:'Charlie Burg, Ryan Beatty, Jensen McRae on repeat', x:300, y:1300, cols:6, w:160, h:160, gap:34,
+        pins:(window.SONGS||[]).map(function(s){ return { img:s.img, t:s.t, a:s.a, preview:s.p, song:true }; }) },
+      { key:'looking', label:'Looking at', x:1760, y:1420, cols:2, w:340, h:220, gap:44, pins:[
+        { img:C+'look-stahl-house.jpg', t:'Stahl House' },
+        { img:C+'look-kaufmann-house.jpg', t:'Kaufmann Desert House' },
+        { img:C+'look-farnsworth-house.jpg', t:'Farnsworth House' },
+        { img:C+'look-eames-house.jpg', t:'Eames House' } ] }
+    ];
+    var W=3300, H=2800, LABEL=110, bottom=0;
+
+    // small, repeatable offsets so the grid still reads as hand-pinned
+    function jitter(n){ var x=Math.sin(n*12.9898)*43758.5453; return x-Math.floor(x); }
+
+    function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+    var html='', k=0;
+    SECTIONS.forEach(function(sec){
+      var rows=Math.ceil(sec.pins.length/sec.cols);
+      sec.cx=sec.x+(sec.cols*(sec.w+sec.gap)-sec.gap)/2;
+      sec.cy=sec.y+(LABEL+rows*(sec.h+sec.gap+28))/2;
+      html+='<div class="cluster-label" style="left:'+sec.x+'px;top:'+sec.y+'px">'+sec.label+(sec.note?'<small>'+esc(sec.note)+'</small>':'')+'</div>';
+      sec.pins.forEach(function(p,i){
+        k++;
+        // loosely scattered around a grid: rows stagger, pins drift, tilt, vary in size and overlap a little
+        var col=i%sec.cols, row=Math.floor(i/sec.cols);
+        var sc=.92+jitter(k+3)*.16, w=Math.round(sec.w*sc), h=Math.round(sec.h*sc);
+        var x=sec.x+col*(sec.w+sec.gap)+(row%2 ? sec.w*.18 : 0)+Math.round((jitter(k)-.5)*sec.w*.22);
+        var y=sec.y+LABEL+row*(sec.h+sec.gap+28)+Math.round((jitter(k+99)-.5)*sec.h*.18);
+        bottom=Math.max(bottom, y+h);
+        var rot=((jitter(k+7)-.5)*4).toFixed(2), z=1+Math.floor(jitter(k+31)*20);
+        var cls='pin'+(p.song?' song':'')+(p.img?'':' placeholder');
+        var cap='<div class="cap"><b>'+esc(p.t)+'</b>'+(p.a?'<span>'+esc(p.a)+'</span>':(p.song?'<span>Artist to come</span>':''))+'</div>';
+        var shot=p.img ? '<div class="shot"><img src="'+p.img+'" alt="'+esc(p.t+(p.a?', '+p.a:''))+'" loading="lazy" draggable="false"></div>' : '<div class="shot"><i>'+esc(p.t)+'</i></div>';
+        html+='<div class="'+cls+'" data-sec="'+sec.key+'" data-i="'+i+'" style="left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;z-index:'+z+';transform:rotate('+rot+'deg)">'+shot+(p.song&&p.preview?'<div class="play">&#9654;</div>':'')+cap+'</div>';
+      });
+    });
+
+    // the board grows with its longest cluster, leaving room before it wraps back to the top
+    H=Math.max(H, bottom+420);
+
+    // wrap-around: a 3x3 block of copies, kept centered on the view, so the board never ends
+    var world=document.getElementById('world'), canvas=document.getElementById('canvas');
+    var copies='';
+    for(var gy=0; gy<3; gy++) for(var gx=0; gx<3; gx++) copies+='<div class="copy" style="transform:translate('+(gx*W)+'px,'+(gy*H)+'px)">'+html+'</div>';
+    world.innerHTML=copies;
+
+    var view={ x:0, y:0 }, zoom=1, ZMAX=1.6; // view: world point at the top-left of the screen
+    // the 3x3 copies cover two board-widths past the view's corner, which sets how far out you can zoom
+    function zmin(){ return Math.max(.3, innerWidth/(2*W), innerHeight/(2*H)); }
+    function mod(a,m){ return ((a%m)+m)%m; }
+    function render(){
+      var ox=mod(view.x,W), oy=mod(view.y,H);
+      world.style.transform='scale('+zoom+') translate('+(-ox)+'px,'+(-oy)+'px)';
+      canvas.style.backgroundSize=(28*zoom)+'px '+(28*zoom)+'px';
+      canvas.style.backgroundPosition=(-ox*zoom)+'px '+(-oy*zoom)+'px';
+      markNearest();
+    }
+    function zoomAt(nz, sx, sy){
+      nz=Math.min(ZMAX, Math.max(zmin(), nz));
+      var wx=view.x+sx/zoom, wy=view.y+sy/zoom;
+      zoom=nz; view.x=wx-sx/zoom; view.y=wy-sy/zoom; render();
+    }
+
+    // ---- section bar ----
+    var bar=document.getElementById('sections');
+    bar.innerHTML=SECTIONS.map(function(s){ return '<button type="button" data-k="'+s.key+'">'+s.label+'</button>'; }).join('');
+    var btns=[].slice.call(bar.querySelectorAll('button'));
+    function wrapDelta(d,m){ d=mod(d,m); return d>m/2 ? d-m : d; }
+    var current=null;
+    function markNearest(){
+      var cx=view.x+innerWidth/2/zoom, cy=view.y+innerHeight/2/zoom, best=null, bd=1e12;
+      SECTIONS.forEach(function(s){ var dx=wrapDelta(s.cx-cx,W), dy=wrapDelta(s.cy-cy,H), d=dx*dx+dy*dy; if(d<bd){ bd=d; best=s.key; } });
+      if(best!==current){ current=best; btns.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-k')===best); }); }
+    }
+    var glide=null, cam={ x:0, y:0, z:1 };
+    function goTo(sec, instant){
+      // back to full size, cluster centered across, its label just under the masthead
+      var top=document.querySelector('.mast').offsetHeight+30;
+      var tx=view.x+wrapDelta(sec.cx-innerWidth/2-view.x,W), ty=view.y+wrapDelta(sec.y-top-view.y,H);
+      if(glide) glide.kill(); vx=vy=0;
+      if(instant || rm || !window.gsap){ view.x=tx; view.y=ty; zoom=1; render(); return; }
+      cam.x=view.x; cam.y=view.y; cam.z=zoom;
+      glide=gsap.to(cam,{ x:tx, y:ty, z:1, duration:1.1, ease:'power3.inOut', onUpdate:function(){ view.x=cam.x; view.y=cam.y; zoom=cam.z; render(); } });
+    }
+    btns.forEach(function(b,i){ b.addEventListener('click', function(){ goTo(SECTIONS[i]); }); });
+
+    // ---- drag with a little momentum, two-finger pinch, wheel / trackpad ----
+    var down=null, moved=0, vx=0, vy=0, last=0, coast=0, touches={}, pinch=null;
+    function stopMotion(){ if(glide) glide.kill(); cancelAnimationFrame(coast); vx=vy=0; }
+    canvas.addEventListener('pointerdown', function(e){
+      if(e.pointerType==='mouse' && e.button!==0) return;
+      stopMotion();
+      touches[e.pointerId]={ x:e.clientX, y:e.clientY };
+      var ids=Object.keys(touches);
+      if(ids.length===2){
+        var a=touches[ids[0]], b=touches[ids[1]];
+        pinch={ d:Math.hypot(a.x-b.x,a.y-b.y), z:zoom }; down=null; moved=99;
+        return;
+      }
+      down={ x:e.clientX, y:e.clientY, id:e.pointerId }; moved=0; last=performance.now();
+    });
+    canvas.addEventListener('pointermove', function(e){
+      if(touches[e.pointerId]){ touches[e.pointerId]={ x:e.clientX, y:e.clientY }; }
+      if(pinch){
+        var ids=Object.keys(touches); if(ids.length<2) return;
+        var a=touches[ids[0]], b=touches[ids[1]];
+        zoomAt(pinch.z*Math.hypot(a.x-b.x,a.y-b.y)/pinch.d, (a.x+b.x)/2, (a.y+b.y)/2);
+        return;
+      }
+      if(!down) return;
+      var dx=e.clientX-down.x, dy=e.clientY-down.y, now=performance.now(), dt=Math.max(1,now-last);
+      down.x=e.clientX; down.y=e.clientY; last=now; moved+=Math.abs(dx)+Math.abs(dy);
+      // only take over the pointer once it is clearly a drag, so plain clicks still reach the pins
+      if(moved>4 && !canvas.classList.contains('dragging')){ canvas.classList.add('dragging'); try{ canvas.setPointerCapture(down.id); }catch(err){} }
+      view.x-=dx/zoom; view.y-=dy/zoom; vx=-dx/zoom/dt; vy=-dy/zoom/dt; render();
+    });
+    function release(e){
+      delete touches[e.pointerId];
+      if(pinch){ if(Object.keys(touches).length<2) pinch=null; return; }
+      if(!down) return; down=null; canvas.classList.remove('dragging');
+      if(rm) return;
+      (function step(){ vx*=.94; vy*=.94; if(Math.abs(vx)+Math.abs(vy)<.02/zoom) return; view.x+=vx*16; view.y+=vy*16; render(); coast=requestAnimationFrame(step); })();
+    }
+    canvas.addEventListener('pointerup', release);
+    canvas.addEventListener('pointercancel', release);
+    canvas.addEventListener('wheel', function(e){
+      e.preventDefault(); stopMotion();
+      // trackpad pinch arrives as ctrl+wheel; cmd/ctrl+scroll zooms with a mouse too
+      if(e.ctrlKey || e.metaKey){ zoomAt(zoom*Math.exp(-e.deltaY*.01), e.clientX, e.clientY); return; }
+      view.x+=e.deltaX/zoom; view.y+=e.deltaY/zoom; render();
+    }, { passive:false });
+    // Safari's own trackpad pinch
+    var gz=1; canvas.addEventListener('gesturestart', function(e){ e.preventDefault(); gz=zoom; });
+    canvas.addEventListener('gesturechange', function(e){ e.preventDefault(); zoomAt(gz*e.scale, e.clientX||innerWidth/2, e.clientY||innerHeight/2); });
+    function zoomBy(f){ stopMotion(); zoomAt(zoom*f, innerWidth/2, innerHeight/2); }
+    document.getElementById('zoomOut').addEventListener('click', function(){ zoomBy(1/1.4); });
+    document.getElementById('zoomIn').addEventListener('click', function(){ zoomBy(1.4); });
+    addEventListener('keydown', function(e){
+      var step={ ArrowLeft:[-120,0], ArrowRight:[120,0], ArrowUp:[0,-120], ArrowDown:[0,120] }[e.key];
+      if(step){ view.x+=step[0]/zoom; view.y+=step[1]/zoom; render(); }
+      if(e.key==='-' || e.key==='_') zoomBy(1/1.4);
+      if(e.key==='=' || e.key==='+') zoomBy(1.4);
+      if(e.key==='Escape') lb.classList.remove('open');
+    });
+    addEventListener('resize', function(){ zoomAt(zoom, innerWidth/2, innerHeight/2); });
+
+    // ---- clicks: songs play a 30-second preview, everything else opens larger ----
+    var audio=new Audio(), playing=null;
+    function setPlaying(key){
+      [].slice.call(world.querySelectorAll('.pin.playing')).forEach(function(p){ p.classList.remove('playing'); });
+      playing=key;
+      if(key) [].slice.call(world.querySelectorAll('.pin[data-sec="listening"][data-i="'+key+'"]')).forEach(function(p){ p.classList.add('playing'); p.querySelector('.play').innerHTML='&#10074;&#10074;'; });
+      [].slice.call(world.querySelectorAll('.pin.song:not(.playing) .play')).forEach(function(b){ b.innerHTML='&#9654;'; });
+    }
+    audio.addEventListener('ended', function(){ setPlaying(null); });
+    var lb=document.getElementById('lightbox');
+    lb.addEventListener('click', function(){ lb.classList.remove('open'); });
+    world.addEventListener('click', function(e){
+      var pin=e.target.closest('.pin'); if(!pin || moved>6) return;
+      var sec=SECTIONS.filter(function(s){ return s.key===pin.getAttribute('data-sec'); })[0], i=+pin.getAttribute('data-i'), p=sec.pins[i];
+      if(p.song){
+        if(!p.preview) return;
+        if(playing===String(i)){ audio.pause(); setPlaying(null); return; }
+        audio.src=p.preview; audio.play().catch(function(){}); setPlaying(String(i)); return;
+      }
+      lb.querySelector('img').src=p.img; lb.querySelector('img').alt=p.t;
+      lb.querySelector('p').textContent=p.t+(p.a?', '+p.a:''); lb.classList.add('open');
+    });
+
+    // start on the first section
+    goTo(SECTIONS[0], true);
   })();
   </script>
 </body>

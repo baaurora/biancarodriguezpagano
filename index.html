@@ -19,13 +19,17 @@
   /* ---------- LOADER + docking centered logo ---------- */
   .loader-bg{ position:fixed; inset:0; background:var(--bg); z-index:100; transition:opacity .9s ease .5s; }
   body:not(.loading) .loader-bg{ opacity:0; pointer-events:none; }
-  /* loader: big BRP monogram shrinks down to its resting spot */
-  .brand{ position:fixed; top:26px; left:50%; z-index:110; height:75px; transform:translateX(-50%); transform-origin:center top; transition:transform 1.15s cubic-bezier(.7,0,.15,1); }
-  .brand img{ height:100%; width:auto; display:block; transition:opacity .5s ease; }
-  .brand .brp-alt{ position:absolute; top:0; left:0; opacity:0; }
-  body.menu-open .brand img{ opacity:0; }
-  body.menu-open .brand .brp-alt{ opacity:1; }
-  body.loading .brand{ transform:translate(-50%,calc(42vh - 1in)) scale(5); }
+  /* loader: the chimera breathes fire on the right, the name flies in, then the chimera docks to the top */
+  .brand{ position:fixed; top:26px; left:50%; z-index:110; height:62px; transform:translateX(-50%); }
+  .brand img{ height:100%; width:auto; display:block; transition:filter .5s ease; }
+  body.menu-open .brand img{ filter:brightness(0) invert(1); }
+  body.intro-on .brand{ visibility:hidden; }
+  .intro{ position:fixed; inset:0; z-index:111; pointer-events:none; background:var(--bg); will-change:transform; }
+  .intro-chim{ position:absolute; right:6vw; top:50%; width:min(44vw,620px); aspect-ratio:1448/1086; margin-top:calc(min(44vw,620px) * -.375); }
+  .intro-chim img{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .intro-chim .ic-fire{ opacity:0; }
+  .intro-name{ position:absolute; left:6vw; top:50%; transform:translateY(-50%); font-family:'Anton',sans-serif; font-size:clamp(44px,7.4vw,124px); line-height:.94; letter-spacing:.01em; text-transform:uppercase; color:var(--accent); }
+  .intro-name span{ display:block; opacity:0; }
 
   /* ---------- top bar ---------- */
   nav{ position:fixed; top:0; left:0; right:0; z-index:90; display:flex; justify-content:space-between; align-items:center; padding:24px 34px; }
@@ -100,7 +104,7 @@
   .lines .line{ display:block; overflow:hidden; }
   .lines .line i{ display:block; font-style:normal; transform:translateY(110%); }
   .lines .line i b{ font-weight:500; } .lines .line i em{ font-style:italic; color:var(--accent); }
-  .about-head{ display:grid; grid-template-columns:1fr 1fr; gap:6vw; align-items:start; }
+  .about-head{ display:grid; grid-template-columns:1fr 1fr; gap:6vw; align-items:center; }
   .chimera-copy{ font-weight:300; font-size:17px; line-height:1.7; color:#4a473d; max-width:46ch; padding-top:4px; }
   .chimera-copy p+p{ margin-top:1.2em; }
   .chimera-copy em{ font-style:italic; }
@@ -108,6 +112,8 @@
   .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:5vw; align-items:center; margin-top:12vh; }
   .about-copy{ font-weight:300; font-size:18px; line-height:1.7; color:#4a473d; }
   .about-copy p+p{ margin-top:1.2em; }
+  .about-chimera{ width:100%; max-width:560px; height:auto; display:block; justify-self:end; }
+  @media (max-width:820px){ .about-chimera{ max-width:300px; justify-self:start; } }
   .def{ font-size:15px; color:var(--muted); margin-bottom:1.8em; letter-spacing:.01em; line-height:1.75; }
   .def .sn{ color:var(--ink); font-weight:500; margin-right:3px; }
   .def b{ color:var(--ink); font-weight:500; letter-spacing:.04em; }
@@ -143,10 +149,8 @@
   .euno-pin-inner{ width:100%; max-width:1200px; margin:0 auto; padding:0 34px; display:grid; grid-template-columns:.82fr 1.18fr; align-items:center; gap:4vw; }
   .euno-copy .role{ margin:16px 0 22px; }
   .euno-copy > p{ font-weight:300; font-size:17px; line-height:1.7; color:#4a473d; max-width:44ch; }
-  .euno-viewport{ position:relative; height:82vh; overflow:hidden; border-radius:2px; }
-  .euno-bg{ position:absolute; inset:-14% -8%; z-index:0; background-size:cover; background-position:center; filter:brightness(.9) saturate(1.05); will-change:transform; }
-  .euno-viewport::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(180deg,rgba(6,12,26,.10),rgba(6,12,26,.34)); }
-  .euno-track{ position:relative; z-index:2; display:flex; gap:30px; align-items:center; height:100%; padding:0 calc(50% - var(--pw)/2); will-change:transform; }
+  .euno-viewport{ position:relative; height:82vh; overflow:hidden; }
+  .euno-track{ display:flex; gap:30px; align-items:center; height:100%; padding:0 calc(50% - var(--pw)/2); will-change:transform; }
   .phone{ flex:0 0 auto; width:var(--pw); padding:8px; border-radius:38px; background:linear-gradient(160deg,#141414,#050505); border:1px solid #262626; box-shadow:0 26px 60px rgba(0,0,0,.26), 0 3px 10px rgba(0,0,0,.18); will-change:transform,opacity; }
   .phone .screen{ position:relative; border-radius:30px; overflow:hidden; background:#000; aspect-ratio:1206/2622; }
   .phone .screen img{ width:100%; height:100%; object-fit:cover; display:block; }
@@ -290,12 +294,25 @@
   .iba-feature .iba-bottle{ width:100%; max-height:72vh; object-fit:contain; object-position:top; display:block; }
   @media (max-width:820px){ .iba-feature{ grid-template-columns:1fr; gap:4vh; } .iba-feature .iba-bottle{ max-height:52vh; } }
   .flipbook{ position:relative; display:flex; align-items:center; justify-content:center; gap:2vw; margin:2vh 0 6vh; }
-  .fb-stage{ perspective:1800px; flex:1 1 auto; display:flex; justify-content:center; min-width:0; }
-  .fb-page{ max-width:100%; max-height:80vh; height:auto; display:block; cursor:zoom-in; box-shadow:0 22px 55px rgba(0,0,0,.18); transform:rotateY(0deg); will-change:transform; }
+  /* two-page spreads; a leaf turns on the spine like a real book */
+  .fb-book{ position:relative; flex:0 1 auto; width:min(100%, calc(80vh * 1.6)); aspect-ratio:1.6; display:grid; grid-template-columns:1fr 1fr; perspective:2600px; box-shadow:0 22px 55px rgba(0,0,0,.18); }
+  .fb-side,.fb-face{ position:relative; overflow:hidden; background:#fff; cursor:zoom-in; }
+  .fb-side img,.fb-face img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .fb-side img:not([src]),.fb-face img:not([src]){ visibility:hidden; }
+  .fb-left::after,.fb-right::after{ content:''; position:absolute; top:0; bottom:0; width:7%; pointer-events:none; }
+  .fb-left::after{ right:0; background:linear-gradient(90deg,transparent,rgba(0,0,0,.14)); }
+  .fb-right::after{ left:0; background:linear-gradient(270deg,transparent,rgba(0,0,0,.14)); }
+  .fb-leaf{ position:absolute; top:0; width:50%; height:100%; transform-style:preserve-3d; visibility:hidden; z-index:2; }
+  .fb-leaf.fwd{ left:50%; transform-origin:left center; }
+  .fb-leaf.bwd{ left:0; transform-origin:right center; }
+  .fb-leaf.turning{ visibility:visible; transition:transform .85s cubic-bezier(.45,.05,.25,1); }
+  .fb-face{ position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .fb-face.back{ transform:rotateY(180deg); }
   .fb-nav{ flex:0 0 auto; background:none; border:1px solid var(--line); border-radius:50%; width:52px; height:52px; font-size:24px; line-height:1; cursor:pointer; color:var(--ink); transition:.25s; }
   .fb-nav:hover{ border-color:var(--accent); color:var(--accent); }
+  .fb-nav:disabled{ opacity:.3; cursor:default; border-color:var(--line); color:var(--ink); }
   .fb-count{ position:absolute; bottom:-3.5vh; left:50%; transform:translateX(-50%); color:var(--muted); font-size:12px; letter-spacing:.14em; }
-  @media (max-width:820px){ .fb-nav{ width:42px; height:42px; font-size:20px; } .fb-page{ max-height:60vh; } }
+  @media (max-width:820px){ .flipbook{ gap:8px; } .fb-nav{ width:36px; height:36px; font-size:18px; } }
 
   /* ---------- interests page ---------- */
   #about .intlink{ margin-top:10vh; display:inline-block; text-decoration:none; color:var(--ink); }
@@ -339,7 +356,7 @@
   .cm-links a{ color:#fff; }
   .cm-resume{ text-decoration:none; border-bottom:1px solid rgba(255,255,255,.55); padding-bottom:2px; }
   .cm-foot{ position:absolute; left:34px; right:auto; bottom:4vh; z-index:2; text-align:left; opacity:0; will-change:opacity,transform; display:flex; align-items:center; gap:14px; }
-  .cm-sign{ height:22px; width:auto; display:block; margin:0; }
+  .cm-sign{ height:34px; width:auto; display:block; margin:0; }
   .cm-legal{ color:#fff; font-size:11px; letter-spacing:.14em; text-transform:uppercase; opacity:.8; }
 
   /* ---------- blue interstitials ---------- */
@@ -363,15 +380,18 @@
   .fade{ opacity:0; transform:translateY(24px); } .rv.fade,.rv .fade{ opacity:1; transform:none; transition:opacity .9s ease, transform .9s cubic-bezier(.16,1,.3,1); }
 
   @media (max-width:820px){ .hero{ grid-template-columns:1fr; padding:0 22px; min-height:auto; padding-top:16vh; padding-bottom:8vh; } .frame{ display:block; height:62vh; margin-top:5vh; clip-path:none !important; } .about-grid{ grid-template-columns:1fr; } figure.plate{ clip-path:none !important; } .plate.portrait{ height:74vh; } }
-  @media (prefers-reduced-motion:reduce){ *{ transition:none !important; animation:none !important; } h1 .ltr,.lines .line i{ transform:none; } .frame,figure.plate,.menu a{ clip-path:none; transform:none; } body.loading .brand{ transform:translateX(-50%); } .loader-bg{ display:none; } .cm-photo{ transform:scale(1); } .cm-black{ opacity:1; } .cm-text,.cm-late{ opacity:1; } .workpage .wp-hero img{ filter:grayscale(0) contrast(1); transform:none; } .euno-stage{ height:auto; } .euno-pin{ position:static; height:auto; padding:6vh 0; } .euno-pin-inner{ grid-template-columns:1fr; } .euno-viewport{ height:auto; overflow:visible; } .euno-track{ transform:none !important; flex-wrap:wrap; justify-content:center; height:auto; } .euno-track .phone{ transform:none !important; opacity:1 !important; } .proj-stage{ height:auto; } .proj-pin{ position:static; height:auto; } .proj-viewport{ overflow-x:auto; } .proj-track{ transform:none !important; } .fade{ opacity:1 !important; transform:none !important; } .feat-art,.euno-plate{ clip-path:none !important; } }
+  @media (prefers-reduced-motion:reduce){ *{ transition:none !important; animation:none !important; } h1 .ltr,.lines .line i{ transform:none; } .frame,figure.plate,.menu a{ clip-path:none; transform:none; } body.loading .brand{ transform:translateX(-50%); } .loader-bg{ display:none; } .intro{ display:none; } .cm-photo{ transform:scale(1); } .cm-black{ opacity:1; } .cm-text,.cm-late{ opacity:1; } .workpage .wp-hero img{ filter:grayscale(0) contrast(1); transform:none; } .euno-stage{ height:auto; } .euno-pin{ position:static; height:auto; padding:6vh 0; } .euno-pin-inner{ grid-template-columns:1fr; } .euno-viewport{ height:auto; overflow:visible; } .euno-track{ transform:none !important; flex-wrap:wrap; justify-content:center; height:auto; } .euno-track .phone{ transform:none !important; opacity:1 !important; } .proj-stage{ height:auto; } .proj-pin{ position:static; height:auto; } .proj-viewport{ overflow-x:auto; } .proj-track{ transform:none !important; } .fade{ opacity:1 !important; transform:none !important; } .feat-art,.euno-plate{ clip-path:none !important; } }
   html.no-gsap .fade{ opacity:1 !important; transform:none !important; } html.no-gsap .frame,html.no-gsap figure.plate,html.no-gsap .euno-plate,html.no-gsap .feat-art{ clip-path:none !important; }
-  .portal{ position:fixed; inset:0; z-index:9000; background:#04060f url('assets/blue/blue-door.jpg') center 42%/cover no-repeat; opacity:0; visibility:hidden; pointer-events:none; will-change:transform,opacity; }
-  .portal.cover{ opacity:1; visibility:visible; transform:scale(2.6); }
+  /* page curtain: the same blue panel and motion as the menu, used between pages */
+  .curtain{ position:fixed; inset:0; z-index:9000; background:var(--accent); pointer-events:none; clip-path:inset(0 0 100% 0); }
+  .curtain.cover{ clip-path:inset(0 0 0 0); }
+  .curtain.moving{ transition:clip-path .8s cubic-bezier(.7,0,.15,1); }
   /* ---------- phones ---------- */
   @media (max-width:600px){
     nav{ padding:14px 18px; }
-    .brand{ height:44px; top:16px; }
-    body.loading .brand{ transform:translate(-50%,calc(40vh - 1in)) scale(4.2); }
+    .brand{ height:40px; top:16px; }
+    .intro-chim{ right:auto; left:50%; top:34%; width:80vw; margin:calc(80vw * -.375) 0 0 -40vw; }
+    .intro-name{ left:22px; top:auto; bottom:14vh; transform:none; font-size:15vw; }
     nav .co{ font-size:9px; letter-spacing:.06em; }
     .menu-btn{ font-size:11px; gap:7px; }
     .menu-btn .menu-ico{ height:20px; }
@@ -387,12 +407,16 @@
 </head>
 <body class="loading">
   <div class="loader-bg"></div>
-  <div class="portal" aria-hidden="true"></div>
-  <a class="brand" href="#top" aria-label="Home"><img src="assets/brp-blue.png" alt="Bianca Rodriguez Pagano" /><img class="brp-alt" src="assets/brp-white.png" alt="" aria-hidden="true" /></a>
+  <div class="curtain" id="curtain" aria-hidden="true"></div>
+  <script>try{ if(sessionStorage.getItem('curtain')){ document.getElementById('curtain').className='curtain cover'; } }catch(e){}</script>
+  <a class="brand" href="#top" aria-label="Bianca Rodriguez Pagano, home"><img src="assets/chimera-logo.png" alt="" /></a>
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro-chim" id="introChim"><img class="ic-rest" src="assets/chimera-relief-blue.png" alt=""><img class="ic-fire" src="assets/chimera-emboss-blue.png" alt=""></div>
+    <div class="intro-name" id="introName"><span>Bianca</span><span>Rodriguez</span><span>Pagano</span></div>
+  </div>
 
   <nav>
     <div class="nav-left">
-      <button class="nav-chimera" id="navChimera" aria-label="Open menu"><img src="assets/chimera-logo.png" alt="" /></button>
       <button class="menu-btn" id="menuBtn">Menu</button>
     </div>
     <span class="co" id="clock">NYC 00:00 · STL 00:00</span>
@@ -404,7 +428,7 @@
     <div class="menu-chimera" aria-hidden="true"><img class="mc-base" src="assets/chimera-relief.png" alt=""><img class="mc-hover" src="assets/chimera-emboss.png" alt=""></div>
     <ol>
       <li><a href="#about"><span class="num">01</span> About</a></li>
-      <li><a href="#current"><span class="num">02</span> Current Work</a></li>
+      <li><a href="#current"><span class="num">02</span> Work</a></li>
       <li><a href="#work"><span class="num">03</span> Portfolio</a></li>
       <li><a href="currently.html"><span class="num">04</span> Currently</a></li>
       <li><a href="assets/Bianca-Rodriguez-Pagano-Resume.docx" target="_blank" rel="noopener"><span class="num">05</span> Resume</a></li>
@@ -440,33 +464,28 @@
   <section class="chapter" id="about">
     <div class="clabel fade"><span class="n">01</span> <span>About</span> <span class="ln"></span></div>
     <div class="about-head">
-      <div class="lines">
-        <span class="line"><i>i'm <b>chimerical.</b></i></span>
-        <span class="line"><i>wildly fanciful,</i></span>
-        <span class="line"><i>improbable, and yet <b>real</b>.</i></span>
-        <span class="line"><i>the sum of everyone <em>around me.</em></i></span>
-      </div>
+      <img class="about-chimera fade" src="assets/chimera-logo.png" alt="A chimera: part lion, part goat, part serpent">
       <div class="chimera-copy fade">
         <p class="def"><b>chi·mer·i·cal</b> <span class="ipa">/kʌɪˈmɛrɪk(ə)l/</span> · adjective<br><span class="sn">1.</span> wildly fanciful, highly improbable <span class="wink">(a good word to spell)</span>.<br><span class="sn">2.</span> relating to or resembling a chimera.</p>
-        <p>The chimera is a creature from Greek myth: part lion, part goat, part serpent, fused into one improbable whole. <em>Chimerical</em> takes its name from her, a word for anything so fanciful it seems it couldn't be real.</p>
-        <p>I see myself the same way: many people in one person, shaped by everyone I've known and every place I've lived, so multi-faceted I couldn't possibly exist, right? When I say I'm the paradoxical sum of the people around me, I mean it plainly. I'm made of their many parts, yet I reconcile them into one whole.</p>
+        <p>The chimera is a creature from Greek myth: part lion, part goat, part serpent, fused into one improbable whole.</p>
+        <p>I see myself the same way: many people in one person, shaped by everyone I've known and every place I've lived.</p>
       </div>
     </div>
     <div class="about-grid">
-      <figure class="plate portrait"><div class="ph" style="background-image:url('assets/about-portrait.webp')"></div></figure>
       <div class="about-copy fade">
         <p>My studies and interests take on their own chimerical form.</p>
         <p>I studied marketing, design, and the business of social impact at Washington University in St. Louis as a John B. Ervin and Oprah Winfrey Scholar, and got my start at Phillips Academy through A Better Chance.</p>
-        <p>My work has since evolved into the odd mix where product strategy, design, and social impact meet, grounded in restorative justice and a belief that good products can do real good.</p>
+        <p>My work sits where product strategy and design meet social impact. I believe a product only succeeds when the people building it understand who it's for and genuinely want to help them get where they're going. Every piece of me came from someone else, so I tend to build for someone else too.</p>
       </div>
+      <figure class="plate portrait"><div class="ph" style="background-image:url('assets/about-portrait.webp')"></div></figure>
     </div>
     <!-- Old floating-word interests page retired; replaced by the Currently page (currently.html). Its markup + JS below are left intact but unlinked. -->
     <a class="viewall intlink fade" href="currently.html">What I'm into right now →</a>
   </section>
 
-  <!-- ============ CHAPTER 02 — CURRENT WORK ============ -->
+  <!-- ============ CHAPTER 02 — WORK ============ -->
   <section class="chapter feature" id="current">
-    <div class="clabel fade"><span class="n">02</span> <span>Current Work</span> <span class="ln"></span></div>
+    <div class="clabel fade"><span class="n">02</span> <span>Work</span> <span class="ln"></span></div>
     <div class="feat">
       <figure class="plate acc-plate"><img src="assets/accenture-logo.svg" alt="Accenture" /></figure>
       <div class="feat-copy fade">
@@ -496,7 +515,6 @@
           </ul>
         </div>
         <div class="euno-viewport">
-          <div class="euno-bg" style="background-image:url('assets/blue/blue-atrium.jpg')" aria-hidden="true"></div>
           <div class="euno-track">
             <div class="phone"><div class="screen"><img loading="lazy" src="assets/euno-app-1-home.png" alt="Euno home, a new thought is ready"></div></div>
             <div class="phone"><div class="screen"><img loading="lazy" src="assets/euno-app-2-reflect.png" alt="Euno Reflect, slow down and look inward"></div></div>
@@ -703,7 +721,7 @@
         <div class="cm-links cm-late" data-max="0.85"><a class="cm-resume" href="assets/Bianca-Rodriguez-Pagano-Resume.docx" target="_blank" rel="noopener">Résumé</a><div class="socials"><a class="soc" href="https://www.pinterest.com/biancaapagano/" target="_blank" rel="noopener" aria-label="Pinterest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg></a><a class="soc" href="https://open.spotify.com/user/bpagano876/playlists" target="_blank" rel="noopener" aria-label="Spotify"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"/></svg></a><a class="soc" href="https://www.linkedin.com/in/biancarpagano" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div></div>
       </div>
       <div class="cm-foot cm-late" data-max="0.9">
-        <img class="cm-sign" src="assets/brp-white.png" alt="Bianca Rodriguez Pagano">
+        <img class="cm-sign" src="assets/chimera-white.png" alt="Bianca Rodriguez Pagano">
         <div class="cm-legal">© 2026 Bianca Rodriguez Pagano &nbsp;·&nbsp; New York · St. Louis</div>
       </div>
     </div>
@@ -717,10 +735,38 @@
 <script>
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ---- loader: big centered logo, then dock to top ----
-  function endLoad(){ document.body.classList.remove('loading'); var t=document.getElementById('top'); if(t) t.classList.add('rv'); }
-  if(reduce){ endLoad(); }
-  else { window.addEventListener('load', function(){ setTimeout(endLoad, 1250); }); setTimeout(endLoad, 3000); }
+  // ---- loader: the chimera breathes fire on the right, the name flies in, then the chimera docks to the top ----
+  var loaded=false, intro=document.getElementById('intro');
+  function endLoad(){ if(loaded) return; loaded=true; document.body.classList.remove('loading'); var t=document.getElementById('top'); if(t) t.classList.add('rv'); }
+  function finishIntro(){ document.body.classList.remove('intro-on'); if(intro) intro.style.display='none'; endLoad(); }
+  function playIntro(){
+    var chim=document.getElementById('introChim'), fire=chim && chim.querySelector('.ic-fire'), rest=chim && chim.querySelector('.ic-rest'), lines=intro ? intro.querySelectorAll('.intro-name span') : [];
+    if(!window.gsap || !chim){ finishIntro(); return; }
+    gsap.timeline({ delay:.5 })
+      // the two poses differ, so swap them outright rather than stacking one over the other
+      .add(function(){ gsap.set(fire,{ opacity:1 }); gsap.set(rest,{ opacity:0 }); })
+      .fromTo(lines,{ x:'7vw', opacity:0, filter:'blur(10px)' },{ x:0, opacity:1, filter:'blur(0px)', duration:1.1, ease:'power4.out', stagger:.09 }, '+=.15')
+      .add(function(){
+        // the whole intro panel slides up like a curtain, still breathing fire, to reveal the site
+        var bg=document.querySelector('.loader-bg'); if(bg) bg.style.display='none';
+        document.body.classList.remove('intro-on'); endLoad();
+      }, '+=.9')
+      .to(intro,{ yPercent:-100, duration:1.1, ease:'power3.inOut', onComplete:finishIntro });
+  }
+  var curtainEl=document.getElementById('curtain');
+  if(curtainEl.classList.contains('cover')){
+    try{ sessionStorage.removeItem('curtain'); }catch(e){}
+    finishIntro();
+    requestAnimationFrame(function(){ curtainEl.classList.add('moving'); curtainEl.offsetHeight; curtainEl.classList.remove('cover'); });
+  }
+  else if(reduce || !intro){ finishIntro(); }
+  else {
+    document.body.classList.add('intro-on');
+    var started=false, pending=2;
+    function start(){ if(started) return; started=true; (document.fonts ? document.fonts.ready : Promise.resolve()).then(playIntro); }
+    ['assets/chimera-relief-blue.png','assets/chimera-emboss-blue.png'].forEach(function(src){ var im=new Image(); im.onload=im.onerror=function(){ if(--pending===0) start(); }; im.src=src; });
+    setTimeout(start, 1500); setTimeout(finishIntro, 8000);
+  }
 
   // ---- menu ----
   var menu=document.getElementById('menu'), menuBtn=document.getElementById('menuBtn'), menuClose=document.getElementById('menuClose');
@@ -876,26 +922,22 @@
         gsap.to(track, { x:function(){ return -dist(); }, ease:'none',
           scrollTrigger:{ trigger:stage, start:'top top', end:function(){ return '+='+dist(); },
             pin:pin, scrub:true, anticipatePin:1, invalidateOnRefresh:true } });
-        var bg=stage.querySelector('.euno-bg');
-        if(bg){ gsap.fromTo(bg, { scale:1.14, x:0 }, { scale:1.0, x:function(){ return -dist()*0.22; }, ease:'none',
-          scrollTrigger:{ trigger:stage, start:'top top', end:function(){ return '+='+dist(); }, scrub:true } }); }
       });
     });
   }
 
-  // A — zoom-through portal page transition (into the blue door)
+  // page curtain: leave for Currently with the menu's blue slide, and lift it again on arrival
   (function(){
-    var portal=document.querySelector('.portal');
-    var rm=matchMedia('(prefers-reduced-motion:reduce)').matches, G=window.gsap;
-    function zoomTo(href){
-      if(rm||!G||!portal){ location.href=href; return; }
-      G.set(portal,{visibility:'visible', scale:1, opacity:0, transformOrigin:'50% 45%'});
-      G.timeline({onComplete:function(){ location.href=href; }})
-        .to(portal,{opacity:1,duration:.3,ease:'power1.out'})
-        .to(portal,{scale:2.7,duration:.85,ease:'power2.in'},0.05);
-    }
+    var curtain=document.getElementById('curtain'), rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    function go(href){ try{ sessionStorage.setItem('curtain','1'); }catch(e){} location.href=href; }
     [].slice.call(document.querySelectorAll('a[href="currently.html"]')).forEach(function(a){
-      a.addEventListener('click',function(e){ e.preventDefault(); zoomTo(a.getAttribute('href')); });
+      a.addEventListener('click',function(e){
+        e.preventDefault(); var href=a.getAttribute('href');
+        // from the menu the blue panel is already covering the screen
+        if(rm || menu.classList.contains('open')){ go(href); return; }
+        curtain.classList.add('moving'); curtain.offsetHeight; curtain.classList.add('cover');
+        setTimeout(function(){ go(href); }, 800);
+      });
     });
   })();
 
@@ -930,28 +972,37 @@
     function stopVideo(){ if(curHls){ try{ curHls.destroy(); }catch(e){} curHls=null; } if(wpVideo) wpVideo.innerHTML=''; }
     var wpPrev=document.getElementById('wpPrev'), wpNext=document.getElementById('wpNext'), wpPrevT=document.getElementById('wpPrevT'), wpNextT=document.getElementById('wpNextT');
     function idx(s){ for(var i=0;i<WORKS.length;i++) if(WORKS[i].slug===s) return i; return -1; }
-    var fbPages=[], fbIdx=0;
+    var fbPages=[], fbSpread=0;
     function buildFlipbook(pages, title){
-      fbPages=pages||[]; fbIdx=0;
+      fbPages=pages||[]; fbSpread=0;
       if(!fbPages.length){ wpCustom.innerHTML=''; return; }
-      wpCustom.innerHTML='<div class="flipbook"><button class="fb-nav fb-prev" aria-label="Previous page">&#8249;</button><div class="fb-stage"><img class="fb-page" alt="'+(title||'')+' page"></div><button class="fb-nav fb-next" aria-label="Next page">&#8250;</button><div class="fb-count"><span class="fb-cur">1</span> / '+fbPages.length+'</div></div>';
-      var page=wpCustom.querySelector('.fb-page'), cur=wpCustom.querySelector('.fb-cur');
-      page.src=fbPages[0]+'?format=2000w';
-      function go(dir){
-        var ni=fbIdx+dir; if(ni<0||ni>=fbPages.length) return;
-        page.style.transformOrigin=dir>0?'left center':'right center';
-        page.style.transition='transform .3s ease-in';
-        page.style.transform='rotateY('+(dir>0?-88:88)+'deg)';
-        setTimeout(function(){
-          fbIdx=ni; page.src=fbPages[fbIdx]+'?format=2000w'; cur.textContent=fbIdx+1;
-          page.style.transition='none'; page.style.transformOrigin=dir>0?'right center':'left center';
-          page.style.transform='rotateY('+(dir>0?88:-88)+'deg)'; page.offsetHeight;
-          page.style.transition='transform .35s ease-out'; page.style.transform='rotateY(0deg)';
-        }, 300);
+      var n=fbPages.length, spreads=Math.ceil(n/2), busy=false, alt=(title||'')+' page';
+      wpCustom.innerHTML='<div class="flipbook"><button class="fb-nav fb-prev" aria-label="Previous pages">&#8249;</button>'+
+        '<div class="fb-book"><div class="fb-side fb-left"><img alt="'+alt+'"></div><div class="fb-side fb-right"><img alt="'+alt+'"></div>'+
+        '<div class="fb-leaf"><div class="fb-face front"><img alt=""></div><div class="fb-face back"><img alt=""></div></div></div>'+
+        '<button class="fb-nav fb-next" aria-label="Next pages">&#8250;</button><div class="fb-count"></div></div>';
+      var q=function(sel){ return wpCustom.querySelector(sel); };
+      var left=q('.fb-left img'), right=q('.fb-right img'), leaf=q('.fb-leaf'), front=q('.fb-face.front img'), back=q('.fb-face.back img'), prev=q('.fb-prev'), next=q('.fb-next'), count=q('.fb-count');
+      function put(img, idx){ img.dataset.idx=idx; if(idx>=0 && idx<n) img.src=fbPages[idx]+'?format=2000w'; else img.removeAttribute('src'); }
+      function sync(){
+        put(left, fbSpread*2); put(right, fbSpread*2+1);
+        var a=fbSpread*2+1, b=Math.min(fbSpread*2+2, n);
+        count.textContent=(a===b ? a : a+'-'+b)+' / '+n;
+        prev.disabled=fbSpread===0; next.disabled=fbSpread>=spreads-1;
       }
-      wpCustom.querySelector('.fb-prev').onclick=function(){ go(-1); };
-      wpCustom.querySelector('.fb-next').onclick=function(){ go(1); };
-      page.addEventListener('click', function(){ lbImg.setAttribute('src', fbPages[fbIdx]+'?format=2500w'); lbCap.textContent=''; lb.classList.add('open'); });
+      function turn(dir){
+        var to=fbSpread+dir; if(busy || to<0 || to>=spreads) return; busy=true;
+        var fwd=dir>0;
+        leaf.className='fb-leaf '+(fwd?'fwd':'bwd'); leaf.style.transform='rotateY(0deg)';
+        if(fwd){ put(front, fbSpread*2+1); put(back, to*2); put(right, to*2+1); }
+        else { put(front, fbSpread*2); put(back, to*2+1); put(left, to*2); }
+        leaf.offsetHeight; leaf.classList.add('turning');
+        leaf.style.transform='rotateY('+(fwd?-180:180)+'deg)';
+        setTimeout(function(){ fbSpread=to; sync(); leaf.className='fb-leaf'; leaf.style.transform=''; busy=false; }, 870);
+      }
+      prev.onclick=function(){ turn(-1); }; next.onclick=function(){ turn(1); };
+      [left,right].forEach(function(img){ img.parentNode.addEventListener('click', function(){ var k=+img.dataset.idx; if(k>=0 && k<n){ lbImg.setAttribute('src', fbPages[k]+'?format=2500w'); lbCap.textContent=''; lb.classList.add('open'); } }); });
+      sync();
     }
     function render(i){
       var w=WORKS[i]; if(!w) return;
