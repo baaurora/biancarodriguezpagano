@@ -150,10 +150,11 @@
         { img:C+'wear-sneakers.jpg', t:'Solid-color sneakers' },
         { img:C+'wear-whitetee.jpg', t:'Perfect white tees' },
         { img:C+'wear-backless.jpg', t:'Backless tops' },
-        { img:C+'wear-trousers.jpg', t:'Baggy wide-leg trousers' } ] },
+        { img:C+'wear-trousers.jpg', t:'Baggy wide-leg trousers' },
+        { img:C+'wear-suede-jacket.jpg', t:'Tan suede jackets' } ] },
       { key:'listening', label:'Listening', note:'Charlie Burg, Ryan Beatty, Jensen McRae on repeat', x:300, y:1640, cols:6, w:160, h:160, gap:34,
         pins:(window.SONGS||[]).map(function(s){ return { img:s.img, t:s.t, a:s.a, preview:s.p, song:true }; }) },
-      { key:'looking', label:'Looking at', x:1760, y:1420, cols:2, w:340, h:220, gap:44, pins:[
+      { key:'looking', label:'Looking at', x:1680, y:1420, cols:2, w:340, h:220, gap:44, pins:[
         { img:C+'look-stahl-house.jpg', t:'Stahl House' },
         { img:C+'look-kaufmann-house.jpg', t:'Kaufmann Desert House' },
         { img:C+'look-farnsworth-house.jpg', t:'Farnsworth House' },
@@ -181,7 +182,7 @@
         bottom=Math.max(bottom, y+h);
         var rot=((jitter(k+7)-.5)*4).toFixed(2), z=1+Math.floor(jitter(k+31)*20);
         var cls='pin'+(p.song?' song':'')+(p.img?'':' placeholder');
-        var cap='<div class="cap"><b>'+esc(p.t)+'</b>'+(p.a?'<span>'+esc(p.a)+'</span>':(p.song?'<span>Artist to come</span>':''))+'</div>';
+        var cap='<div class="cap"><b>'+esc(p.t)+(p.link?' &#8599;':'')+'</b>'+(p.a?'<span>'+esc(p.a)+'</span>':(p.song?'<span>Artist to come</span>':''))+'</div>';
         var shot=p.img ? '<div class="shot"><img src="'+p.img+'" alt="'+esc(p.t+(p.a?', '+p.a:''))+'" loading="lazy" draggable="false"></div>' : '<div class="shot"><i>'+esc(p.t)+'</i></div>';
         html+='<div class="'+cls+'" data-sec="'+sec.key+'" data-i="'+i+'" style="left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;z-index:'+z+';transform:rotate('+rot+'deg)">'+shot+(p.song&&p.preview?'<div class="play">&#9654;</div>':'')+cap+'</div>';
       });
@@ -315,6 +316,8 @@
         if(playing===String(i)){ audio.pause(); setPlaying(null); return; }
         audio.src=p.preview; audio.play().catch(function(){}); setPlaying(String(i)); return;
       }
+      // pins with a shop link open it in a new tab instead of enlarging
+      if(p.link){ window.open(p.link,'_blank','noopener'); return; }
       lb.querySelector('img').src=p.img; lb.querySelector('img').alt=p.t;
       lb.querySelector('p').textContent=p.t+(p.a?', '+p.a:''); lb.classList.add('open');
     });
