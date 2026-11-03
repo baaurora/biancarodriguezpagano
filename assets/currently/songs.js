@@ -257,5 +257,11 @@ window.SONGS=[
   "a": "Billie Marten",
   "img": "assets/currently/song-goodnight-moon.jpg",
   "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/bd/0a/ac/bd0aac47-6686-d5b4-edbe-91cd0eceac4c/mzaf_4321527214405311573.plus.aac.p.m4a"
+ },
+ {
+  "t": "Soup",
+  "a": "Remi Wolf",
+  "img": "assets/currently/song-soup.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d8/ed/dc/d8eddc9a-2c3e-f0d7-245b-628f74d307f9/mzaf_94122464181924996.plus.aac.p.m4a"
  }
 ];
