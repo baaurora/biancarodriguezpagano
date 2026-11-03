@@ -263,5 +263,545 @@ window.SONGS=[
   "a": "Remi Wolf",
   "img": "assets/currently/song-soup.jpg",
   "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d8/ed/dc/d8eddc9a-2c3e-f0d7-245b-628f74d307f9/mzaf_94122464181924996.plus.aac.p.m4a"
+ },
+ {
+  "t": "One Evening",
+  "a": "Feist",
+  "img": "assets/currently/song-one-evening-feist.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/1d/39/99/1d3999eb-a057-e190-0c6c-e7b2b742b096/mzaf_1735827353731687137.plus.aac.p.m4a"
+ },
+ {
+  "t": "Gatekeeper",
+  "a": "Feist",
+  "img": "assets/currently/song-gatekeeper-feist.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9b/f8/b7/9bf8b724-c7b6-579f-cffc-ff152fac66ec/mzaf_11889544858542978444.plus.aac.p.m4a"
+ },
+ {
+  "t": "The Limit to Your Love",
+  "a": "Feist",
+  "img": "assets/currently/song-the-limit-to-your-love-feist.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/41/ae/c3/41aec313-bc31-592d-7524-b257f08c6f60/mzaf_15979155522678357238.plus.aac.p.m4a"
+ },
+ {
+  "t": "So Sorry",
+  "a": "Feist",
+  "img": "assets/currently/song-so-sorry-feist.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d8/c5/25/d8c52500-1953-3337-7de9-886f9e14dfee/mzaf_5534884226212798131.plus.aac.p.m4a"
+ },
+ {
+  "t": "Casimir Pulaski Day",
+  "a": "Sufjan Stevens",
+  "img": "assets/currently/song-casimir-pulaski-day-sufjan-stevens.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ae/38/d8/ae38d8ba-194c-ff26-4f8e-966c7b50bd93/mzaf_17824291276559388990.plus.aac.p.m4a"
+ },
+ {
+  "t": "Vampire Empire",
+  "a": "Big Thief",
+  "img": "assets/currently/song-vampire-empire-big-thief.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/4f/0d/05/4f0d0569-3b8c-4307-8466-49e658799800/mzaf_12961803786530764378.plus.aac.p.m4a"
+ },
+ {
+  "t": "Nausica\u00e4 (Love Will Be Revealed)",
+  "a": "Cameron Winter",
+  "img": "assets/currently/song-nausica-love-will-be-revealed-cameron-winter.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f3/ca/56/f3ca56d6-126a-d81d-f647-69825ec1e155/mzaf_16954363286982036517.plus.aac.p.m4a"
+ },
+ {
+  "t": "Dragon New Warm Mountain I Believe In You",
+  "a": "Big Thief",
+  "img": "assets/currently/song-dragon-new-warm-mountain-i-believe-in-you-big-thief.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/23/23/19/23231960-1c4e-cfdc-ddbd-7c5e405c797e/mzaf_17134661384803889542.plus.aac.p.m4a"
+ },
+ {
+  "t": "Garden Song",
+  "a": "Phoebe Bridgers",
+  "img": "assets/currently/song-garden-song-phoebe-bridgers.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/be/1a/22/be1a2200-12f1-853b-01bf-a9b3e7552f24/mzaf_2655626485051684594.plus.aac.p.m4a"
+ },
+ {
+  "t": "Big Star",
+  "a": "Free Range",
+  "img": "assets/currently/song-big-star-free-range.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/07/66/5c/07665ca1-15c9-1f67-d093-cebe869012d7/mzaf_745430599378815948.plus.aac.p.m4a"
+ },
+ {
+  "t": "NUEVAYoL",
+  "a": "Bad Bunny",
+  "img": "assets/currently/song-nuevayol-bad-bunny.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2e/97/55/2e97555a-1ed3-9e07-de57-07e1213186c9/mzaf_7594924455925081680.plus.aac.p.m4a"
+ },
+ {
+  "t": "Cari\u00f1o",
+  "a": "The Mar\u00edas",
+  "img": "assets/currently/song-cari-o-the-mar-as.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d2/36/92/d236927d-5de6-5199-5438-bc1e955ff9ff/mzaf_10241964212603806116.plus.aac.p.m4a"
+ },
+ {
+  "t": "Planets",
+  "a": "Billie Marten",
+  "img": "assets/currently/song-planets-billie-marten.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ac/8d/63/ac8d63ad-e5d9-feb0-6be0-ff51fcc45cca/mzaf_9815122411137361644.plus.aac.p.m4a"
+ },
+ {
+  "t": "Do You Know Me",
+  "a": "John Mayer",
+  "img": "assets/currently/song-do-you-know-me-john-mayer.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/30/2b/ae/302baea7-5c58-cf43-9b7a-bb5ee8635eb2/mzaf_10079349183339505052.plus.aac.p.m4a"
+ },
+ {
+  "t": "Who Says",
+  "a": "John Mayer",
+  "img": "assets/currently/song-who-says-john-mayer.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0e/b0/70/0eb070de-43f8-cdd9-50fc-02bfaac8185c/mzaf_13349571434124507887.plus.aac.p.m4a"
+ },
+ {
+  "t": "Jesus Christ 2005 God Bless America",
+  "a": "The 1975",
+  "img": "assets/currently/song-jesus-christ-2005-god-bless-america-the-1975.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/4a/50/2e/4a502efd-f394-1795-5a89-945007fab937/mzaf_7740836222283190226.plus.aac.p.m4a"
+ },
+ {
+  "t": "Apple Pie",
+  "a": "Lizzy McAlpine",
+  "img": "assets/currently/song-apple-pie-lizzy-mcalpine.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/8f/6e/b9/8f6eb9cf-f7c8-4597-9df7-a8504e9daa16/mzaf_10709840550128156197.plus.aac.p.m4a"
+ },
+ {
+  "t": "The 30th",
+  "a": "Billie Eilish",
+  "img": "assets/currently/song-the-30th-billie-eilish.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/7b/c3/d5/7bc3d59c-be76-0a7a-aca5-69dc8d3665a2/mzaf_6145733791519602558.plus.aac.p.m4a"
+ },
+ {
+  "t": "Santa Barbara",
+  "a": "Angelo De Augustine",
+  "img": "assets/currently/song-santa-barbara-angelo-de-augustine.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/36/c5/34/36c534d5-2dd9-21cd-c6ab-73cd2bd9f105/mzaf_14608615549367534766.plus.aac.p.m4a"
+ },
+ {
+  "t": "Touch and Go",
+  "a": "Adam Melchor",
+  "img": "assets/currently/song-touch-and-go-adam-melchor.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8a/e9/49/8ae949ce-72f1-6c96-c7b1-ebd2027f4d50/mzaf_15414193324886117842.plus.aac.p.m4a"
+ },
+ {
+  "t": "Eat Your Young",
+  "a": "Hozier",
+  "img": "assets/currently/song-eat-your-young-hozier.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/02/a1/06/02a106cf-708f-0bda-0f80-20724cbf42fb/mzaf_16436026680622884693.plus.aac.p.m4a"
+ },
+ {
+  "t": "Blue Coupe",
+  "a": "Twin Peaks",
+  "img": "assets/currently/song-blue-coupe-twin-peaks.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/4f/c6/4d/4fc64d9e-aac2-6576-e033-5d751b23d897/mzaf_14975569808101636706.plus.aac.p.m4a"
+ },
+ {
+  "t": "Sarah",
+  "a": "Alex G",
+  "img": "assets/currently/song-sarah-alex-g.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/91/75/ef/9175efb0-3318-e33b-34dc-8e1e583a36c4/mzaf_16458746550407156643.plus.aac.p.m4a"
+ },
+ {
+  "t": "Crying, Laughing, Loving, Lying",
+  "a": "Labi Siffre",
+  "img": "assets/currently/song-crying-laughing-loving-lying-labi-siffre.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/30/cd/18/30cd1824-378e-37f3-d435-067122b52f75/mzaf_14856731133812750229.plus.aac.p.m4a"
+ },
+ {
+  "t": "Hello Sunshine",
+  "a": "Flyte",
+  "img": "assets/currently/song-hello-sunshine-flyte.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c6/ad/94/c6ad94cf-9ef3-8044-0f4c-dc7f95f7f5b2/mzaf_4156146210864927115.plus.aac.p.m4a"
+ },
+ {
+  "t": "Ghetto Prayer (Give It Up)",
+  "a": "Nicotine",
+  "img": "assets/currently/song-ghetto-prayer-give-it-up-nicotine.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/fa/77/3f/fa773f3a-f694-ad0e-d726-9edb3cddfd07/mzaf_8181619734266920793.plus.aac.p.m4a"
+ },
+ {
+  "t": "The Dress",
+  "a": "Dijon",
+  "img": "assets/currently/song-the-dress-dijon.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/5e/ff/26/5eff26a5-6c26-0b63-998e-1702c8ea35d6/mzaf_1228389916400728203.plus.aac.p.m4a"
+ },
+ {
+  "t": "Crossfire / So Into You",
+  "a": "Nai Palm",
+  "img": "assets/currently/song-crossfire-so-into-you-nai-palm.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/fb/dc/97/fbdc97c3-0c13-fa2c-933f-0f8ac50f2cf4/mzaf_4307576216609745702.plus.aac.p.m4a"
+ },
+ {
+  "t": "Evergreen (You Didn't Deserve Me At All)",
+  "a": "Omar Apollo",
+  "img": "assets/currently/song-evergreen-you-didn-t-deserve-me-at-all-omar-apollo.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3c/08/e5/3c08e587-1161-81be-ba8a-fc32dec39a83/mzaf_3179736070239285042.plus.aac.p.m4a"
+ },
+ {
+  "t": "Jackie Onassis",
+  "a": "Sammy Rae & The Friends",
+  "img": "assets/currently/song-jackie-onassis-sammy-rae-the-friends.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/85/2f/b7/852fb7c2-194e-c689-8fdd-83ca9d1c77d5/mzaf_16000280502417680396.plus.aac.p.m4a"
+ },
+ {
+  "t": "Who's Got You Singing Again",
+  "a": "Prep",
+  "img": "assets/currently/song-who-s-got-you-singing-again-prep.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ea/2a/33/ea2a331e-6c60-a214-f72e-74403cbea8b6/mzaf_10787132723354863557.plus.aac.p.m4a"
+ },
+ {
+  "t": "Making Do",
+  "a": "Lake Street Dive",
+  "img": "assets/currently/song-making-do-lake-street-dive.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/bb/ff/d3/bbffd306-49a7-4c04-2bcf-801461fea32f/mzaf_9066559445445349264.plus.aac.p.m4a"
+ },
+ {
+  "t": "Animal Spirits",
+  "a": "Vulfpeck",
+  "img": "assets/currently/song-animal-spirits-vulfpeck.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/93/64/cb/9364cb24-8789-d51d-ca69-852c759ceed4/mzaf_17562173400242526477.plus.aac.p.m4a"
+ },
+ {
+  "t": "Talking to Myself",
+  "a": "MICHELLE",
+  "img": "assets/currently/song-talking-to-myself-michelle.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/95/b1/9f/95b19f49-53f6-341c-b831-c8dcf4902dc6/mzaf_2872187748280959842.plus.aac.p.m4a"
+ },
+ {
+  "t": "Instant Crush",
+  "a": "Daft Punk & Julian Casablancas",
+  "img": "assets/currently/song-instant-crush-daft-punk-julian-casablancas.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/dc/1e/c2/dc1ec21b-96a0-470c-ee89-2b09346fa847/mzaf_7827098614541126525.plus.aac.p.m4a"
+ },
+ {
+  "t": "Cleats",
+  "a": "FINNEAS",
+  "img": "assets/currently/song-cleats-finneas.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d1/53/6d/d1536db6-dbfd-7d64-5289-efe03ab7a6c4/mzaf_72524971148621371.plus.aac.p.m4a"
+ },
+ {
+  "t": "Anything for Love",
+  "a": "Dua Lipa",
+  "img": "assets/currently/song-anything-for-love-dua-lipa.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d6/b9/b8/d6b9b8bd-3e31-7353-6d5f-d534f13485af/mzaf_8877096940620354124.plus.aac.p.m4a"
+ },
+ {
+  "t": "Sweet Love",
+  "a": "Augustine",
+  "img": "assets/currently/song-sweet-love-augustine.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9b/35/09/9b350957-b342-1ad3-e31b-74e20e29df42/mzaf_5734275369172465971.plus.aac.p.m4a"
+ },
+ {
+  "t": "Memory Box",
+  "a": "Peter Cat Recording Co.",
+  "img": "assets/currently/song-memory-box-peter-cat-recording-co.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/02/fd/9d/02fd9d06-ec68-c99e-9b83-9b9449a8eb72/mzaf_934751940816423872.plus.aac.p.m4a"
+ },
+ {
+  "t": "High Life",
+  "a": "Daft Punk",
+  "img": "assets/currently/song-high-life-daft-punk.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/20/60/bc/2060bcff-569f-9f03-b5ab-d000d235896f/mzaf_152906689635921771.plus.aac.p.m4a"
+ },
+ {
+  "t": "Face to Face",
+  "a": "Daft Punk",
+  "img": "assets/currently/song-face-to-face-daft-punk.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ab/7e/7e/ab7e7e17-1803-4bb9-ff55-e3e8409925ca/mzaf_13376909038790853248.plus.aac.p.m4a"
+ },
+ {
+  "t": "Change",
+  "a": "Djo",
+  "img": "assets/currently/song-change-djo.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/52/dc/da/52dcda01-3bd9-7d48-8eda-78d187b8c55b/mzaf_10229224044072298943.plus.aac.p.m4a"
+ },
+ {
+  "t": "Dragonball Durag",
+  "a": "Thundercat",
+  "img": "assets/currently/song-dragonball-durag-thundercat.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/77/c0/2f/77c02f75-b474-fae0-50ad-359d251df5ee/mzaf_5247844739836920564.plus.aac.p.m4a"
+ },
+ {
+  "t": "I Wanna Be Your Lover",
+  "a": "Prince",
+  "img": "assets/currently/song-i-wanna-be-your-lover-prince.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d9/18/3d/d9183d82-91e1-97d2-47c5-7f1a6ae9b38d/mzaf_5850258491976440044.plus.aac.p.m4a"
+ },
+ {
+  "t": "affection",
+  "a": "Between Friends",
+  "img": "assets/currently/song-affection-between-friends.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/70/65/f1/7065f1a4-d83b-f70c-d06f-b880189c4bbe/mzaf_13998825825173190120.plus.aac.p.m4a"
+ },
+ {
+  "t": "Colorado",
+  "a": "Rene\u00e9 Rapp",
+  "img": "assets/currently/song-colorado-rene-rapp.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b4/13/21/b413211b-5368-4f29-23c8-a9d07da01beb/mzaf_8991499701324191476.plus.aac.p.m4a"
+ },
+ {
+  "t": "Earrings",
+  "a": "Malcolm Todd",
+  "img": "assets/currently/song-earrings-malcolm-todd.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d4/97/06/d4970622-b87b-9af3-b375-21af92396852/mzaf_1443470814230920096.plus.aac.p.m4a"
+ },
+ {
+  "t": "Audrey Tell Me",
+  "a": "Juice",
+  "img": "assets/currently/song-audrey-tell-me-juice.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/e1/22/9b/e1229b36-6812-c4ed-d0aa-f2cf179cec4d/mzaf_6461473120518014867.plus.aac.p.m4a"
+ },
+ {
+  "t": "Netflix & Dusse",
+  "a": "Smino",
+  "img": "assets/currently/song-netflix-dusse-smino.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/29/e3/22/29e32213-adfb-d550-ce24-6bab0b25c556/mzaf_1970758131960215960.plus.aac.p.m4a"
+ },
+ {
+  "t": "Back in the Day",
+  "a": "Erykah Badu",
+  "img": "assets/currently/song-back-in-the-day-erykah-badu.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/85/7c/56/857c569b-ad56-c6b4-3f38-e6d516d37552/mzaf_7901461062482684396.plus.aac.p.m4a"
+ },
+ {
+  "t": "To Zion",
+  "a": "Lauryn Hill",
+  "img": "assets/currently/song-to-zion-lauryn-hill.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c2/6a/f9/c26af99e-75d9-c9bb-249f-e6a30b3abba5/mzaf_9581843583352424577.plus.aac.p.m4a"
+ },
+ {
+  "t": "To Be Hunted",
+  "a": "Childish Gambino",
+  "img": "assets/currently/song-to-be-hunted-childish-gambino.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/66/cc/31/66cc3186-b935-97ad-4289-99049aa40a65/mzaf_10844734032352649711.plus.aac.p.m4a"
+ },
+ {
+  "t": "Supermodel",
+  "a": "SZA",
+  "img": "assets/currently/song-supermodel-sza.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/0e/14/ac/0e14ac84-47a0-0f7e-990e-0d6638249957/mzaf_9825287821412413530.plus.aac.p.m4a"
+ },
+ {
+  "t": "I, Carrion (Icarian)",
+  "a": "Hozier",
+  "img": "assets/currently/song-i-carrion-icarian-hozier.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ad/8a/9b/ad8a9bce-db05-0bba-4188-af24f1b95e28/mzaf_6255355375554673716.plus.aac.p.m4a"
+ },
+ {
+  "t": "Over Country",
+  "a": "Lizzy McAlpine",
+  "img": "assets/currently/song-over-country-lizzy-mcalpine.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/12/04/80/1204806f-888b-f51f-bb2d-824a0c8042a9/mzaf_17592297730455255228.plus.aac.p.m4a"
+ },
+ {
+  "t": "Keep Driving",
+  "a": "Harry Styles",
+  "img": "assets/currently/song-keep-driving-harry-styles.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/86/86/a3/8686a35e-5715-c687-1b58-4bcbc63d8460/mzaf_8394697523670552560.plus.aac.p.m4a"
+ },
+ {
+  "t": "Little Bother",
+  "a": "King Princess",
+  "img": "assets/currently/song-little-bother-king-princess.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/65/f4/9d/65f49d09-f824-b746-19cd-277856d91ddc/mzaf_17858593901136470848.plus.aac.p.m4a"
+ },
+ {
+  "t": "Madhouse",
+  "a": "Matt Maltese",
+  "img": "assets/currently/song-madhouse-matt-maltese.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/19/f3/1c/19f31cdd-e8cb-17e8-3266-e0ac73b690ac/mzaf_8879538512078353785.plus.aac.p.m4a"
+ },
+ {
+  "t": "Did I Make You Up?",
+  "a": "half\u2022alive",
+  "img": "assets/currently/song-did-i-make-you-up-half-alive.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/7f/b8/18/7fb81803-fd35-a7c7-bbf8-1cb68a08dcb5/mzaf_108524668034109046.plus.aac.p.m4a"
+ },
+ {
+  "t": "Come Down Soon",
+  "a": "Lizzy McAlpine",
+  "img": "assets/currently/song-come-down-soon-lizzy-mcalpine.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/61/da/9d/61da9d70-405c-9501-fbb6-9625922f5363/mzaf_6434790206250160629.plus.aac.p.m4a"
+ },
+ {
+  "t": "Vodka Cranberry",
+  "a": "Conan Gray",
+  "img": "assets/currently/song-vodka-cranberry-conan-gray.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c4/62/bf/c462bf83-ed08-5576-267b-ae8e4e00b87e/mzaf_16743630135382705752.plus.aac.p.m4a"
+ },
+ {
+  "t": "Skinny Love",
+  "a": "Bon Iver",
+  "img": "assets/currently/song-skinny-love-bon-iver.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c3/53/ef/c353ef07-9302-e169-0c7d-e9873f99c1db/mzaf_15074454966550904398.plus.aac.p.m4a"
+ },
+ {
+  "t": "29 #Strafford APTS",
+  "a": "Bon Iver",
+  "img": "assets/currently/song-29-strafford-apts-bon-iver.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2c/11/fc/2c11fc36-7ad8-86fa-2ee0-93a0d815cf12/mzaf_18185031506026387189.plus.aac.p.m4a"
+ },
+ {
+  "t": "Flume",
+  "a": "Bon Iver",
+  "img": "assets/currently/song-flume-bon-iver.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/38/88/e2/3888e246-4970-0129-37ff-4ea7c10802aa/mzaf_12669747809622804569.plus.aac.p.m4a"
+ },
+ {
+  "t": "Re: Stacks",
+  "a": "Bon Iver",
+  "img": "assets/currently/song-re-stacks-bon-iver.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/20/76/46/20764603-bb40-7bdc-06f3-89fd9eec8b74/mzaf_660145888220992071.plus.aac.p.m4a"
+ },
+ {
+  "t": "Weak",
+  "a": "SWV",
+  "img": "assets/currently/song-weak-swv.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/da/ee/11/daee1149-870e-1b88-a763-d25de17266f4/mzaf_11938268759492736982.plus.aac.p.m4a"
+ },
+ {
+  "t": "Love On Top",
+  "a": "Beyonc\u00e9",
+  "img": "assets/currently/song-love-on-top-beyonc.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/fe/0d/43/fe0d4311-3027-745d-759b-aec3354a54e7/mzaf_10947966188805060685.plus.aac.p.m4a"
+ },
+ {
+  "t": "Chastain",
+  "a": "Del Water Gap",
+  "img": "assets/currently/song-chastain-del-water-gap.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/89/3e/cc/893ecc56-9df5-00e2-0789-ce6427439764/mzaf_8987349975558089440.plus.aac.p.m4a"
+ },
+ {
+  "t": "Rodeo Clown",
+  "a": "Dijon",
+  "img": "assets/currently/song-rodeo-clown-dijon.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/6b/35/ef/6b35eff2-9f97-e56a-0f4c-b77bb3c7f9cc/mzaf_3551629815547836180.plus.aac.p.m4a"
+ },
+ {
+  "t": "Yes I'm Changing",
+  "a": "Tame Impala",
+  "img": "assets/currently/song-yes-i-m-changing-tame-impala.jpg",
+  "p": null
+ },
+ {
+  "t": "Agosto",
+  "a": "Bad Bunny",
+  "img": "assets/currently/song-agosto-bad-bunny.jpg",
+  "p": null
+ },
+ {
+  "t": "PISTOLWHIP",
+  "a": "Spill Tab",
+  "img": "assets/currently/song-pistolwhip-spill-tab.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview124/v4/b3/43/35/b343352d-b945-6f6f-6d2c-8d8f638d0426/mzaf_11358106015186803871.plus.aac.p.m4a"
+ },
+ {
+  "t": "Bad Dream Baby",
+  "a": "Hippo Campus",
+  "img": "assets/currently/song-bad-dream-baby-hippo-campus.jpg",
+  "p": null
+ },
+ {
+  "t": "Super Rich Kids",
+  "a": "Frank Ocean",
+  "img": "assets/currently/song-super-rich-kids-frank-ocean.jpg",
+  "p": null
+ },
+ {
+  "t": "World Domination",
+  "a": "Joey Bada$$",
+  "img": "assets/currently/song-world-domination-joey-bada.jpg",
+  "p": null
+ },
+ {
+  "t": "Sally, When the Wine Runs Out",
+  "a": "ROLE MODEL",
+  "img": "assets/currently/song-sally-when-the-wine-runs-out-role-model.jpg",
+  "p": null
+ },
+ {
+  "t": "Nico's Red Truck",
+  "a": "Dijon",
+  "img": "assets/currently/song-nico-s-red-truck-dijon.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/19/91/b2/1991b258-2264-3291-99f1-84cf33efd090/mzaf_14878639338725918321.plus.aac.p.m4a"
+ },
+ {
+  "t": "Bad Life",
+  "a": "Omar Apollo & Kali Uchis",
+  "img": "assets/currently/song-bad-life-omar-apollo-kali-uchis.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a7/b4/51/a7b45115-4c79-a547-460b-d9d03425482b/mzaf_11441074289566556898.plus.aac.p.m4a"
+ },
+ {
+  "t": "Street You Live On (Live)",
+  "a": "Remi Wolf",
+  "img": "assets/currently/song-street-you-live-on-live-remi-wolf.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3f/f5/b8/3ff5b8e5-fbca-9d08-ea32-a5dd318ffc13/mzaf_15510290666027057351.plus.aac.p.m4a"
+ },
+ {
+  "t": "Mara",
+  "a": "Genevieve Stokes",
+  "img": "assets/currently/song-mara-genevieve-stokes.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/28/40/e7/2840e7ae-61de-a19e-600c-efbac7e57b56/mzaf_13375741188537379770.plus.aac.p.m4a"
+ },
+ {
+  "t": "Going Home",
+  "a": "The Avalanches",
+  "img": "assets/currently/song-going-home-the-avalanches.jpg",
+  "p": null
+ },
+ {
+  "t": "nice shoes / in your world",
+  "a": "Steve Lacy",
+  "img": "assets/currently/song-nice-shoes-in-your-world-steve-lacy.jpg",
+  "p": null
+ },
+ {
+  "t": "Feels",
+  "a": "Snoh Aalegra",
+  "img": "assets/currently/song-feels-snoh-aalegra.jpg",
+  "p": null
+ },
+ {
+  "t": "Body",
+  "a": "Briston Maroney",
+  "img": "assets/currently/song-body-briston-maroney.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/69/31/b6/6931b613-10e4-ecf1-c761-020beec63272/mzaf_12534305952684248332.plus.aac.p.m4a"
+ },
+ {
+  "t": "The Idea",
+  "a": "Briston Maroney",
+  "img": "assets/currently/song-the-idea-briston-maroney.jpg",
+  "p": null
+ },
+ {
+  "t": "Ultrapure",
+  "a": "Briston Maroney",
+  "img": "assets/currently/song-ultrapure-briston-maroney.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/74/84/4b/74844b3e-f76f-0ebd-f68a-484d48bf0b5a/mzaf_5791485318548932792.plus.aac.p.m4a"
+ },
+ {
+  "t": "Oregon",
+  "a": "Briston Maroney",
+  "img": "assets/currently/song-oregon-briston-maroney.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/97/03/80/970380b6-1eff-bec7-14ee-6eeba1253b64/mzaf_9398986367896285290.plus.aac.p.m4a"
+ },
+ {
+  "t": "Chattanooga",
+  "a": "Briston Maroney",
+  "img": "assets/currently/song-chattanooga-briston-maroney.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/2f/46/11/2f46119b-9395-601b-7ef6-704d2a52a32e/mzaf_9444258763938267604.plus.aac.p.m4a"
+ },
+ {
+  "t": "Fool's Gold",
+  "a": "Briston Maroney",
+  "img": "assets/currently/song-fool-s-gold-briston-maroney.jpg",
+  "p": null
+ },
+ {
+  "t": "Cinnamon",
+  "a": "Briston Maroney",
+  "img": "assets/currently/song-cinnamon-briston-maroney.jpg",
+  "p": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f0/96/58/f096584e-0ae9-296b-d19f-6ac44f7f806d/mzaf_2398237511569111037.plus.aac.p.m4a"
  }
 ];

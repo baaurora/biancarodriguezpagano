@@ -50,7 +50,8 @@
   .pin .cap span{ color:var(--muted); }
   .pin:hover .cap,.pin.playing .cap{ clip-path:inset(0 0 0 0); }
   .pin.song .play{ position:absolute; right:8px; bottom:8px; width:28px; height:28px; border-radius:50%; background:var(--accent); color:#fff; font-size:11px; display:flex; align-items:center; justify-content:center; transform:scale(0); transition:transform .3s cubic-bezier(.16,1,.3,1); }
-  .pin.song:hover .play,.pin.song.playing .play{ transform:scale(1); }
+  .pin.song:hover .play,.pin.song.playing .play,.pin.video:hover .play{ transform:scale(1); }
+  .pin.video .play{ position:absolute; right:10px; bottom:10px; width:34px; height:34px; border-radius:50%; background:var(--accent); color:#fff; font-size:12px; display:flex; align-items:center; justify-content:center; transform:scale(0); transition:transform .3s cubic-bezier(.16,1,.3,1); }
   .pin.placeholder .shot{ background:var(--accent); display:flex; align-items:flex-end; padding:12px; }
   .pin.placeholder .shot i{ font-style:normal; font-family:'Anton',sans-serif; font-size:22px; color:#fff; text-transform:uppercase; line-height:1; }
 
@@ -140,7 +141,12 @@
         { img:C+'watch-twin-peaks.jpg', t:'Twin Peaks' },
         { img:C+'watch-widows-bay.jpg', t:"Widow's Bay" },
         { img:C+'watch-the-diplomat.jpg', t:'The Diplomat' },
-        { img:C+'watch-you-can-see-everything.jpg', t:'You Can See Everything', a:'Nathan Fielder & Lance Oppenheim' } ] },
+        { img:C+'watch-you-can-see-everything.jpg', t:'You Can See Everything', a:'Nathan Fielder & Lance Oppenheim' },
+        { img:C+'watch-mv-did-i-make-you-up.jpg', t:'Did I Make You Up? (music video)', a:'half•alive', video:true, link:'https://www.youtube.com/watch?v=_g8x-ER2n70' },
+        { img:C+'watch-mv-rush.jpg', t:'Rush (music video)', a:'Troye Sivan', video:true, link:'https://www.youtube.com/watch?v=b53QJYP-lqY' },
+        { img:C+'watch-mv-ankles.jpg', t:'Ankles (music video)', a:'Lucy Dacus', video:true, link:'https://www.youtube.com/watch?v=pcW_-uxy6dQ' },
+        { img:C+'watch-mv-i-cant-wait.jpg', t:"I Can't Wait (music video)", a:'Phoebe Bridgers', video:true, link:'https://www.youtube.com/watch?v=hU-gnl8WLP0' },
+        { img:C+'watch-mv-lost-boys.jpg', t:'Lost Boys (music video)', a:'Phoebe Bridgers', video:true, link:'https://www.youtube.com/watch?v=4KXnboPN1p4' } ] },
       { key:'wearing', label:'Wearing', note:'Casual preppy, lots of layering', x:2480, y:300, cols:3, w:190, h:253, gap:34, pins:[
         { img:C+'wear-oxford.jpg', t:'Oxford button-downs' },
         { img:C+'wear-jeans.jpg', t:'Barrel-leg jeans' },
@@ -152,15 +158,15 @@
         { img:C+'wear-backless.jpg', t:'Backless tops' },
         { img:C+'wear-trousers.jpg', t:'Baggy wide-leg trousers' },
         { img:C+'wear-suede-jacket.jpg', t:'Tan suede jackets' } ] },
-      { key:'listening', label:'Listening', note:'Charlie Burg, Ryan Beatty, Jensen McRae on repeat', x:300, y:1640, cols:6, w:160, h:160, gap:34,
+      { key:'listening', label:'Listening', note:'Charlie Burg, Ryan Beatty, Jensen McRae on repeat', x:300, y:2160, cols:10, w:160, h:160, gap:34,
         pins:(window.SONGS||[]).map(function(s){ return { img:s.img, t:s.t, a:s.a, preview:s.p, song:true }; }) },
-      { key:'looking', label:'Looking at', x:1680, y:1420, cols:2, w:340, h:220, gap:44, pins:[
+      { key:'looking', label:'Looking at', x:2520, y:1820, cols:2, w:340, h:220, gap:44, pins:[
         { img:C+'look-stahl-house.jpg', t:'Stahl House' },
         { img:C+'look-kaufmann-house.jpg', t:'Kaufmann Desert House' },
         { img:C+'look-farnsworth-house.jpg', t:'Farnsworth House' },
         { img:C+'look-eames-house.jpg', t:'Eames House' } ] }
     ];
-    var W=3300, H=2800, LABEL=110, bottom=0;
+    var W=3600, H=2800, LABEL=110, bottom=0;
 
     // small, repeatable offsets so the grid still reads as hand-pinned
     function jitter(n){ var x=Math.sin(n*12.9898)*43758.5453; return x-Math.floor(x); }
@@ -168,23 +174,27 @@
     function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
     var html='', k=0;
     SECTIONS.forEach(function(sec){
-      var rows=Math.ceil(sec.pins.length/sec.cols);
+      // place pins slot by slot; a music video spans two columns at 16:9
+      var slot=0;
+      sec.pins.forEach(function(p){ var span=p.video?2:1; if(slot%sec.cols+span>sec.cols) slot+=sec.cols-slot%sec.cols; p._slot=slot; slot+=span; });
+      var rows=Math.ceil(slot/sec.cols);
       sec.cx=sec.x+(sec.cols*(sec.w+sec.gap)-sec.gap)/2;
       sec.cy=sec.y+(LABEL+rows*(sec.h+sec.gap+28))/2;
       html+='<div class="cluster-label" style="left:'+sec.x+'px;top:'+sec.y+'px">'+sec.label+(sec.note?'<small>'+esc(sec.note)+'</small>':'')+'</div>';
       sec.pins.forEach(function(p,i){
         k++;
         // loosely scattered around a grid: rows stagger, pins drift, tilt, vary in size and overlap a little
-        var col=i%sec.cols, row=Math.floor(i/sec.cols);
+        var col=p._slot%sec.cols, row=Math.floor(p._slot/sec.cols);
         var sc=.92+jitter(k+3)*.16, w=Math.round(sec.w*sc), h=Math.round(sec.h*sc);
+        if(p.video){ w=Math.round((sec.w*2+sec.gap)*sc); h=Math.round(w*9/16); }
         var x=sec.x+col*(sec.w+sec.gap)+(row%2 ? sec.w*.18 : 0)+Math.round((jitter(k)-.5)*sec.w*.22);
         var y=sec.y+LABEL+row*(sec.h+sec.gap+28)+Math.round((jitter(k+99)-.5)*sec.h*.18);
         bottom=Math.max(bottom, y+h);
         var rot=((jitter(k+7)-.5)*4).toFixed(2), z=1+Math.floor(jitter(k+31)*20);
-        var cls='pin'+(p.song?' song':'')+(p.img?'':' placeholder');
+        var cls='pin'+(p.song?' song':'')+(p.video?' video':'')+(p.img?'':' placeholder');
         var cap='<div class="cap"><b>'+esc(p.t)+(p.link?' &#8599;':'')+'</b>'+(p.a?'<span>'+esc(p.a)+'</span>':(p.song?'<span>Artist to come</span>':''))+'</div>';
         var shot=p.img ? '<div class="shot"><img src="'+p.img+'" alt="'+esc(p.t+(p.a?', '+p.a:''))+'" loading="lazy" draggable="false"></div>' : '<div class="shot"><i>'+esc(p.t)+'</i></div>';
-        html+='<div class="'+cls+'" data-sec="'+sec.key+'" data-i="'+i+'" style="left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;z-index:'+z+';transform:rotate('+rot+'deg)">'+shot+(p.song&&p.preview?'<div class="play">&#9654;</div>':'')+cap+'</div>';
+        html+='<div class="'+cls+'" data-sec="'+sec.key+'" data-i="'+i+'" style="left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;z-index:'+z+';transform:rotate('+rot+'deg)">'+shot+((p.song&&p.preview)||p.video?'<div class="play">&#9654;</div>':'')+cap+'</div>';
       });
     });
 
