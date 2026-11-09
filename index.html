@@ -812,6 +812,22 @@
   if(window.gsap && window.ScrollTrigger){
     window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
     if(document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ ScrollTrigger.refresh(); }); }
+    // lazy images keep growing the page after load, which leaves the pinned sections (Euno, Selected Projects)
+    // measured at stale positions; re-measure whenever the page height really changes
+    // every re-measure also resets Lenis's scroll limit, or scrolling stops short of the end of the page
+    ScrollTrigger.addEventListener('refresh', function(){ if(lenis) lenis.resize(); });
+    if(window.ResizeObserver){
+      var lastH=0, rmT=0;
+      new ResizeObserver(function(){
+        clearTimeout(rmT);
+        rmT=setTimeout(function(){
+          var h=document.documentElement.scrollHeight;
+          if(Math.abs(h-lastH)<4){ if(lenis) lenis.resize(); return; }
+          ScrollTrigger.refresh();
+          lastH=document.documentElement.scrollHeight;
+        }, 150);
+      }).observe(document.body);
+    }
   }
 
   // ---- reveals now handled by GSAP ScrollTrigger below ----
